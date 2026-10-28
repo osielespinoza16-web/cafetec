@@ -13,6 +13,8 @@ de su módulo** en menos de una hora y **mide su flujo de trabajo** con métrica
 | 5 | Inventario | `modulos/inventario.py` | 2 | Equipo 2 |
 | 6 | Reportes | `modulos/reportes.py` | 2 | Equipo 1 |
 
+**Enlaces:** [tablero de flujo](https://github.com/users/osielespinoza16-web/projects/2) · [bitácora en Drive](https://docs.google.com/spreadsheets/d/1FdRbUE111QeKUcwXqgW4CiPu0fcylvST/edit)
+
 Las parejas no son al azar: Caja cobra los pedidos, Inventario descuenta los productos del
 catálogo y Reportes lee usuarios y ventas. Quien **usa** un módulo es quien lo revisa.
 
@@ -231,8 +233,10 @@ al final todo el historial está en el repositorio.
 python probar.py --metricas pedidos
 ```
 
-Esto muestra sus métricas y sus desperdicios, y genera dos archivos para la bitácora
-(`Plantilla_Lean_CafeTec.xlsx`). En cada uno: ábrelo, selecciona todo y copia.
+Esto muestra sus métricas y sus desperdicios, y genera dos archivos para la
+**[bitácora del grupo en Google Drive](https://docs.google.com/spreadsheets/d/1FdRbUE111QeKUcwXqgW4CiPu0fcylvST/edit)**. Se llena ahí, no en el archivo
+`Plantilla_Lean_CafeTec.xlsx` del repositorio (ese es solo la plantilla de respaldo).
+En cada archivo: ábrelo, selecciona todo y copia.
 
 - `registro/metricas_pedidos.txt` → hoja **Flujo**, en la celda marcada con ◀ en la fila de tu equipo.
 - `registro/desperdicios_pedidos.txt` → hoja **Desperdicios**, en la primera fila libre de la columna
