@@ -6,6 +6,12 @@ Flujo de cada actividad (una tarjeta del tablero):
   python probar.py --bloqueo pedidos "esperando respuesta del equipo 1"
   python probar.py --desbloqueo pedidos   Registran el tiempo que estuvieron detenidos (espera)
 
+Desperdicios (los anota el encargado de flujo en el momento):
+  python probar.py --desperdicio pedidos "cambio de tarea" 3 "qué pasó"
+      Tipos: espera, retrabajo, parcial, cambio de tarea, extra, transferencia, demora
+  Además se registran solos: esperas (--bloqueo), retrabajo (pruebas que fallaron),
+  cambio de tarea (intentos frenados por el límite WIP) y trabajo parcialmente hecho.
+
 Métricas:
   python probar.py --metricas pedidos     Métricas Lean del módulo (y archivo para pegar en Excel)
   python probar.py --tablero              Resumen de los 6 módulos -> registro/TABLERO.md
@@ -39,6 +45,19 @@ MODULOS = tuple(FUNCIONES)
 ACTIVIDADES = ("1", "2", "3")
 LIMITE_WIP = 1
 CAMPOS_FLUJO = ["fecha_hora", "modulo", "actividad", "evento", "detalle"]
+CAMPOS_DESPERDICIO = ["fecha_hora", "modulo", "actividad", "tipo", "minutos", "descripcion", "origen"]
+AUTOMATICO = "probar.py"
+MANUAL = "Mismo equipo"
+# Los 7 desperdicios del software (Poppendieck) y las palabras con que se pueden escribir.
+TIPOS_DESPERDICIO = {
+    "Espera": ("espera", "esperando", "bloqueo"),
+    "Retrabajo / defecto": ("retrabajo", "defecto", "error", "rehacer"),
+    "Trabajo parcialmente hecho": ("parcial", "medias", "incompleto", "sin terminar"),
+    "Cambio de tarea": ("cambio", "tarea", "multitarea", "saltar"),
+    "Funcionalidad extra": ("extra", "funcionalidad", "de mas"),
+    "Transferencia / traspaso": ("transferencia", "traspaso", "pasar informacion"),
+    "Demoras de proceso": ("demora", "proceso", "tramite", "configuracion", "instalacion"),
+}
 
 
 def ahora():
@@ -94,6 +113,31 @@ def estado_tarjetas(modulo):
     return tarjetas
 
 
+def quitar_acentos(texto):
+    import unicodedata
+    texto = unicodedata.normalize("NFKD", str(texto))
+    return "".join(c for c in texto if not unicodedata.combining(c)).strip().lower()
+
+
+def tipo_desperdicio(texto):
+    texto = quitar_acentos(texto)
+    for tipo, palabras in TIPOS_DESPERDICIO.items():
+        if quitar_acentos(tipo) == texto or any(p in texto for p in palabras):
+            return tipo
+    return None
+
+
+def anotar_desperdicio(modulo, actividad, tipo, minutos_perdidos, descripcion, origen):
+    ruta = CARPETA / f"desperdicios_{modulo}.csv"
+    CARPETA.mkdir(parents=True, exist_ok=True)
+    nuevo = not ruta.exists()
+    with ruta.open("a", newline="", encoding="utf-8") as archivo:
+        escritor = csv.writer(archivo)
+        if nuevo:
+            escritor.writerow(CAMPOS_DESPERDICIO)
+        escritor.writerow([ahora(), modulo, actividad, tipo, minutos_perdidos, descripcion, origen])
+
+
 def en_progreso(tarjetas):
     return [a for a, t in tarjetas.items() if t["inicio"] and not t["fin"]]
 
@@ -112,6 +156,10 @@ def iniciar(modulo, actividad):
     if len(abiertas) >= LIMITE_WIP:
         print(f"LÍMITE WIP ({LIMITE_WIP}): termina primero la actividad {abiertas[0]} de {modulo}.")
         print("En Lean se termina lo que se empezó antes de jalar más trabajo.")
+        anotar_desperdicio(modulo, abiertas[0], "Cambio de tarea", 0,
+                           f"Intentaron iniciar la actividad {actividad} sin terminar la {abiertas[0]} "
+                           f"(lo frenó el límite WIP)", AUTOMATICO)
+        print("(Quedó registrado como desperdicio: cambio de tarea.)")
         return
     anotar_flujo(modulo, actividad, "INICIO", FUNCIONES[modulo][int(actividad) - 1])
     print(f"Actividad {actividad} de {modulo} EN PROGRESO desde las {ahora()[11:16]}: "
@@ -131,7 +179,7 @@ def bloquear(modulo, motivo):
         return
     anotar_flujo(modulo, actividad, "BLOQUEO", motivo or "sin motivo")
     print(f"Actividad {actividad} BLOQUEADA desde las {ahora()[11:16]} ({motivo or 'sin motivo'}).")
-    print("Ese tiempo cuenta como ESPERA (desperdicio). Anótalo también en tu hoja de Excel.")
+    print("Ese tiempo cuenta como ESPERA (desperdicio) y se registra solo.")
 
 
 def desbloquear(modulo):
@@ -142,6 +190,58 @@ def desbloquear(modulo):
             print(f"Actividad {actividad} desbloqueada. Espera: {minutos(t['bloqueos'][-1][0], ahora())} min.")
             return
     print("No había ningún bloqueo abierto.")
+
+
+def registrar_desperdicio(modulo, argumentos):
+    uso = ('Uso: python probar.py --desperdicio <modulo> "<tipo>" <minutos> "<qué pasó>"\n'
+           'Ejemplo: python probar.py --desperdicio pedidos "cambio de tarea" 3 "revisamos la act. 3 sin terminar la 2"\n'
+           "Tipos: " + ", ".join(TIPOS_DESPERDICIO))
+    if len(argumentos) < 3:
+        print(uso)
+        return
+    tipo = tipo_desperdicio(argumentos[0])
+    if tipo is None:
+        print(f"No reconozco el tipo '{argumentos[0]}'.\n{uso}")
+        return
+    try:
+        minutos_perdidos = round(float(argumentos[1].replace(",", ".")), 1)
+        if minutos_perdidos < 0:
+            raise ValueError
+    except ValueError:
+        print(f"Los minutos deben ser un número, por ejemplo 3 o 1.5.\n{uso}")
+        return
+    descripcion = " ".join(argumentos[2:]).strip()
+    abiertas = en_progreso(estado_tarjetas(modulo))
+    actividad = abiertas[0] if abiertas else ""
+    anotar_desperdicio(modulo, actividad, tipo, minutos_perdidos, descripcion, MANUAL)
+    donde = f" (actividad {actividad})" if actividad else ""
+    print(f"Desperdicio registrado{donde}: {tipo} · {minutos_perdidos} min · {descripcion}")
+
+
+def desperdicios_modulo(modulo):
+    """Junta los desperdicios anotados a mano, los automáticos y los que salen del flujo."""
+    lista = [{"fecha_hora": f["fecha_hora"], "actividad": f["actividad"], "tipo": f["tipo"],
+              "minutos": float(f["minutos"] or 0), "descripcion": f["descripcion"], "origen": f["origen"]}
+             for f in leer_csv(CARPETA / f"desperdicios_{modulo}.csv")]
+    corte = ahora()
+    for act, t in estado_tarjetas(modulo).items():
+        for desde, hasta, motivo in t["bloqueos"]:
+            lista.append({"fecha_hora": desde, "actividad": act, "tipo": "Espera",
+                          "minutos": minutos(desde, hasta or corte),
+                          "descripcion": f"Bloqueados: {motivo}" + ("" if hasta else " (sigue abierto)"),
+                          "origen": AUTOMATICO})
+        if t["inicio"] and not t["fin"]:
+            lista.append({"fecha_hora": t["inicio"], "actividad": act, "tipo": "Trabajo parcialmente hecho",
+                          "minutos": minutos(t["inicio"], corte),
+                          "descripcion": f"La actividad {act} ({FUNCIONES[modulo][int(act) - 1]}) quedó iniciada sin terminar",
+                          "origen": AUTOMATICO})
+    for d in detectar_defectos(modulo):
+        lista.append({"fecha_hora": d["detectado"], "actividad": d["actividad"], "tipo": "Retrabajo / defecto",
+                      "minutos": d["minutos"] or 0.0,
+                      "descripcion": "Prueba que falló y se corrigió: " + d["descripcion"][:150]
+                                     + ("" if d["minutos"] is not None else " (sin corregir)"),
+                      "origen": AUTOMATICO})
+    return sorted(lista, key=lambda d: d["fecha_hora"])
 
 
 # ====================================================================== pruebas
@@ -296,13 +396,33 @@ def mostrar_metricas(modulo):
     print(f"\nArchivo para Excel: registro/{salida.name}")
     print("Ábrelo, selecciona todo (Ctrl+A), copia y pégalo en la hoja Flujo, en la celda ◀ de tu equipo (columna Act.).")
 
+    desperdicios = desperdicios_modulo(modulo)
+    print(f"\n=== Desperdicios · Equipo {EQUIPO[modulo]} ===\n")
+    if not desperdicios:
+        print("  No hay desperdicios registrados.")
+    for d in desperdicios:
+        act = f"act. {d['actividad']}" if d["actividad"] else "general"
+        print(f"  {hora(d['fecha_hora'])}  {act:<8} {d['tipo']:<27} {d['minutos']:>5} min  "
+              f"{d['descripcion'][:70]}  [{d['origen']}]")
+    print(f"\n  Total: {round(sum(d['minutos'] for d in desperdicios), 1)} min")
+    salida = CARPETA / f"desperdicios_{modulo}.txt"
+    with salida.open("w", encoding="utf-8", newline="") as archivo:
+        for d in desperdicios:
+            # Columnas de Excel: Día | Equipo | Tipo | Qué pasó | Min perdidos | Contramedida | Lo detectó
+            texto = (f"Act {d['actividad']}: " if d["actividad"] else "") + d["descripcion"].replace("\t", " ")
+            archivo.write("\t".join([str(DIA[modulo]), f"Equipo {EQUIPO[modulo]}", d["tipo"], texto,
+                                      str(d["minutos"]), "", d["origen"]]) + "\r\n")
+    print(f"\nArchivo para Excel: registro/{salida.name}")
+    print("Ábrelo, copia todo y pégalo en la hoja Desperdicios, en la primera fila libre de la columna Día.")
+    print("Después escriban la contramedida de los que costaron más minutos.")
+
 
 def tablero():
     lineas = ["# Tablero de métricas Lean · CafeTec", "",
               f"Generado: {ahora().replace('T', ' ')}", "",
               "| Día | Equipo | Módulo | Terminadas | Lead total (min) | Lead prom. | Espera (min) "
-              "| Eficiencia | Defectos | Bien a la 1a |",
-              "|---|---|---|---|---|---|---|---|---|---|"]
+              "| Eficiencia | Defectos | Bien a la 1a | Desperdicio (min) |",
+              "|---|---|---|---|---|---|---|---|---|---|---|"]
     por_dia = defaultdict(list)
     for modulo in MODULOS:
         datos = metricas_modulo(modulo)
@@ -313,23 +433,27 @@ def tablero():
         con_corrida = [m for m in datos if m["primera"]]
         fpy = round(100 * sum(m["primera"] == "Sí" for m in con_corrida) / len(con_corrida)) if con_corrida else None
         efic = round((lead_total - espera) / lead_total * 100) if lead_total else None
-        fila = {"hechas": len(hechas), "lead": lead_total, "espera": espera, "defectos": defectos, "fpy": fpy}
+        desperdicio = round(float(sum(d["minutos"] for d in desperdicios_modulo(modulo))), 1)
+        fila = {"hechas": len(hechas), "lead": lead_total, "espera": espera, "defectos": defectos, "fpy": fpy,
+                "desperdicio": desperdicio}
         por_dia[DIA[modulo]].append(fila)
         lineas.append(
             f"| {DIA[modulo]} | {EQUIPO[modulo]} | {modulo} | {len(hechas)}/3 | {lead_total} | "
             f"{round(lead_total / len(hechas), 1) if hechas else '-'} | {espera} | "
-            f"{f'{efic}%' if efic is not None else '-'} | {defectos} | {f'{fpy}%' if fpy is not None else '-'} |")
+            f"{f'{efic}%' if efic is not None else '-'} | {defectos} | {f'{fpy}%' if fpy is not None else '-'} | "
+            f"{desperdicio} |")
 
     lineas += ["", "## Día 1 contra día 2", "",
                "| Día | Actividades terminadas | Lead promedio por actividad (min) | Espera total (min) "
-               "| Defectos por actividad |", "|---|---|---|---|---|"]
+               "| Defectos por actividad | Desperdicio (min) |", "|---|---|---|---|---|---|"]
     for dia in (1, 2):
         filas = por_dia[dia]
         hechas = sum(f["hechas"] for f in filas)
         lead = sum(f["lead"] for f in filas)
         lineas.append(f"| {dia} | {hechas}/9 | {round(lead / hechas, 1) if hechas else '-'} | "
                       f"{round(sum(f['espera'] for f in filas), 1)} | "
-                      f"{round(sum(f['defectos'] for f in filas) / hechas, 2) if hechas else '-'} |")
+                      f"{round(sum(f['defectos'] for f in filas) / hechas, 2) if hechas else '-'} | "
+                      f"{round(sum(f['desperdicio'] for f in filas), 1)} |")
     lineas += ["", "Lead time: desde que se jala la tarjeta (--iniciar) hasta que pasan todas sus pruebas.",
                "Eficiencia de flujo: porcentaje del lead time sin espera (bloqueos).",
                "Bien a la 1a: actividades cuya primera corrida de pruebas pasó completa."]
@@ -363,6 +487,8 @@ def main(argv):
             bloquear(modulo, " ".join(argv[2:]))
         elif comando == "--desbloqueo":
             desbloquear(modulo)
+        elif comando == "--desperdicio":
+            registrar_desperdicio(modulo, argv[2:])
         elif comando == "--metricas":
             mostrar_metricas(modulo)
         else:

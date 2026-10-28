@@ -4,14 +4,14 @@ CafeTec es el sistema de pedidos de una cafetería escolar, hecho en Python (Fla
 La app, el diseño y las pruebas **ya están hechos**. Cada equipo programa las **3 funciones
 de su módulo** en menos de una hora y **mide su flujo de trabajo** con métricas Lean.
 
-| Equipo | Módulo | Archivo | Día | Revisa su PR | Observa el día que no programa |
-|---|---|---|---|---|---|
-| 1 | Usuarios | `modulos/usuarios.py` | 1 | Equipo 6 | Equipo 6 (día 2) |
-| 2 | Catálogo (menú) | `modulos/catalogo.py` | 1 | Equipo 5 | Equipo 5 (día 2) |
-| 3 | Pedidos | `modulos/pedidos.py` | 1 | Equipo 4 | Equipo 4 (día 2) |
-| 4 | Caja | `modulos/caja.py` | 2 | Equipo 3 | Equipo 3 (día 1) |
-| 5 | Inventario | `modulos/inventario.py` | 2 | Equipo 2 | Equipo 2 (día 1) |
-| 6 | Reportes | `modulos/reportes.py` | 2 | Equipo 1 | Equipo 1 (día 1) |
+| Equipo | Módulo | Archivo | Día | Revisa su PR |
+|---|---|---|---|---|
+| 1 | Usuarios | `modulos/usuarios.py` | 1 | Equipo 6 |
+| 2 | Catálogo (menú) | `modulos/catalogo.py` | 1 | Equipo 5 |
+| 3 | Pedidos | `modulos/pedidos.py` | 1 | Equipo 4 |
+| 4 | Caja | `modulos/caja.py` | 2 | Equipo 3 |
+| 5 | Inventario | `modulos/inventario.py` | 2 | Equipo 2 |
+| 6 | Reportes | `modulos/reportes.py` | 2 | Equipo 1 |
 
 Las parejas no son al azar: Caja cobra los pedidos, Inventario descuenta los productos del
 catálogo y Reportes lee usuarios y ventas. Quien **usa** un módulo es quien lo revisa.
@@ -82,10 +82,10 @@ Tómalo en cuenta:
 
 | Principio Lean | Cómo se aplica aquí |
 |---|---|
-| Eliminar desperdicio | Registran esperas (`--bloqueo`) y desperdicios (issue "Desperdicio") |
+| Eliminar desperdicio | Módulos independientes para que nadie espere a nadie; cada equipo registra sus desperdicios con `--desperdicio` y esperas, retrabajo y cambios de tarea se registran solos |
 | Construir con calidad | Pruebas automáticas en cada corrida y en cada PR (GitHub Actions) |
 | Amplificar el aprendizaje | La retrospectiva del día 1 alimenta la forma de trabajar del día 2 |
-| Decidir lo más tarde posible | Los módulos son independientes; nadie espera a otro para programar |
+| Decidir lo más tarde posible | Cada función se diseña al jalarla, y la mejora del día 2 se decide hasta ver los datos del día 1 |
 | Entregar rápido | Sistema pull: cada equipo jala su siguiente tarjeta del tablero de flujo; lotes pequeños (una función por tarjeta) |
 | Empoderar al equipo | Nadie asigna trabajo: cada equipo decide cuándo jalar y cómo resolver su tarjeta |
 | Ver el todo | El tablero (`registro/TABLERO.md`) compara a los 6 equipos y a los 2 días |
@@ -106,12 +106,15 @@ atora el flujo. Columnas: *Todo → In Progress → Revision → Done*.
 
 ## 4. Agenda de cada sesión (≤ 55 min)
 
+La clase puede ser remota: nadie necesita ver la pantalla de otro equipo. Cada equipo trabaja
+en su propia llamada o sala, y los desperdicios los registra el mismo equipo con `probar.py`.
+
 | Minuto | Equipos que programan | Equipos que no programan ese día |
 |---|---|---|
-| 0–5 | `git pull`, crear rama, iniciar la actividad 1 | Se sientan con el equipo que van a observar |
-| 5–35 | Actividades 1, 2 y 3 (≈10 min cada una), un commit por actividad | **Observan** y anotan desperdicios que vean (hoja Desperdicios de la bitácora); leen sus propios docstrings |
-| 35–45 | Abren el PR con sus métricas | **Revisan** el PR con `REVISION.md` y lo aprueban |
-| 45–55 | Merge, `--metricas` y retrospectiva en la bitácora (Excel) | Retrospectiva juntos |
+| 0–5 | `git pull`, crear rama, iniciar la actividad 1 | Leen el docstring del módulo que van a revisar |
+| 5–35 | Actividades 1, 2 y 3 (≈10 min cada una), un commit por actividad; el encargado de flujo anota desperdicios con `--desperdicio` | Disponibles para dudas; preparan su propio módulo del otro día |
+| 35–45 | Abren el PR con sus métricas | **Revisan** el PR en GitHub con `REVISION.md` y lo aprueban |
+| 45–55 | Merge, `--metricas` y pegar en la bitácora (Excel) | Retrospectiva juntos |
 
 Al terminar el día 1, el grupo elige **1 o 2 mejoras** de la retrospectiva y los equipos del
 día 2 las aplican (eso es *kaizen*). Al final se comparan los dos días con datos.
@@ -121,7 +124,7 @@ día 2 las aplican (eso es *kaizen*). Al final se comparan los dos días con dat
 - **Programador:** escribe el código.
 - **Navegante:** lee la especificación en voz alta y revisa cada línea mientras se escribe.
 - **Encargado de flujo:** mueve la tarjeta, corre `--iniciar`, `--bloqueo` y las pruebas, y
-  anota desperdicios.
+  registra con `--desperdicio` todo lo que les haga perder tiempo.
 
 ## 6. Ciclo de cada actividad (una tarjeta)
 
@@ -141,7 +144,15 @@ día 2 las aplican (eso es *kaizen*). Al final se comparan los dos días con dat
    python probar.py --bloqueo pedidos "esperando respuesta del profe"
    python probar.py --desbloqueo pedidos
    ```
-5. **Cerrar.** Commit y mueve la tarjeta a *Revision* en el tablero de flujo:
+5. **Si pierden tiempo por otra cosa**, el encargado de flujo lo registra en el momento:
+   ```bash
+   python probar.py --desperdicio pedidos "cambio de tarea" 3 "revisamos la act. 3 sin terminar la 2"
+   ```
+   Tipos: `espera`, `retrabajo`, `parcial`, `cambio de tarea`, `extra`, `transferencia`, `demora`.
+   No hace falta anotar lo que `probar.py` ya registra solo: esperas (`--bloqueo`), pruebas que
+   fallaron (retrabajo), intentos frenados por el límite WIP (cambio de tarea) y actividades que
+   quedaron sin terminar.
+6. **Cerrar.** Commit y mueve la tarjeta a *Revision* en el tablero de flujo:
    ```bash
    git add modulos/pedidos.py registro/
    git commit -m "Actividad 1: crear_pedido"
@@ -174,7 +185,7 @@ métricas va en archivos separados por módulo.
 | Defectos en revisión | Cambios que pidió el equipo revisor | Comentarios del PR → hoja Revisiones |
 | Espera de revisión | Tiempo entre que se abre el PR y se aprueba | Hoja Revisiones y workflow "Métricas de flujo" |
 | Throughput | Actividades terminadas por equipo y por día | `registro/TABLERO.md` |
-| Desperdicios | Los 7 desperdicios Lean observados | Issues "Desperdicio" y hoja Desperdicios de la bitácora |
+| Desperdicios | Los 7 desperdicios Lean, con sus minutos | `--desperdicio` + detección automática → hoja Desperdicios |
 
 Los datos crudos quedan en `registro/` (un archivo por módulo) y suben con el PR, así que
 al final todo el historial está en el repositorio.
@@ -185,8 +196,12 @@ al final todo el historial está en el repositorio.
 python probar.py --metricas pedidos
 ```
 
-Esto genera `registro/metricas_pedidos.txt`. Ábrelo, selecciona todo, copia y pégalo en la hoja
-**Flujo** de `Plantilla_Lean_CafeTec.xlsx`, en la celda marcada con ◀ en la fila de tu equipo.
+Esto muestra sus métricas y sus desperdicios, y genera dos archivos para la bitácora
+(`Plantilla_Lean_CafeTec.xlsx`). En cada uno: ábrelo, selecciona todo y copia.
+
+- `registro/metricas_pedidos.txt` → hoja **Flujo**, en la celda marcada con ◀ en la fila de tu equipo.
+- `registro/desperdicios_pedidos.txt` → hoja **Desperdicios**, en la primera fila libre de la columna
+  **Día**. Después escriban la contramedida de los que costaron más minutos.
 
 La bitácora tiene una hoja por tema, compartida por todo el grupo:
 
@@ -194,7 +209,7 @@ La bitácora tiene una hoja por tema, compartida por todo el grupo:
 |---|---|---|
 | **Portada** | Cada equipo escribe sus integrantes | Antes del día 1 |
 | **Flujo** | Cada equipo pega su salida de `--metricas` | Al terminar sus 3 actividades |
-| **Desperdicios** | Observadores, encargado de flujo y revisores | En el momento en que pasa |
+| **Desperdicios** | Cada equipo pega `registro/desperdicios_<modulo>.txt` y escribe la contramedida | Al terminar sus 3 actividades |
 | **Revisiones** | El equipo revisor (horas del PR y cambios pedidos) | Al aprobar el PR |
 | **Retrospectiva** | Cada equipo su renglón; el grupo, el acuerdo y la conclusión | Al final de cada día |
 | **Resultados** | Nadie: se calcula sola, con gráficas | — |
@@ -221,7 +236,8 @@ GitHub calcule el tiempo de cierre de cada tarjeta y la espera de cada PR.
 | `python probar.py pedidos` | Todas las pruebas de pedidos |
 | `python probar.py --bloqueo pedidos "motivo"` | Empieza a contar una espera |
 | `python probar.py --desbloqueo pedidos` | Termina la espera |
-| `python probar.py --metricas pedidos` | Métricas del equipo y archivo para Excel |
+| `python probar.py --desperdicio pedidos "tipo" 3 "qué pasó"` | Registra un desperdicio con sus minutos |
+| `python probar.py --metricas pedidos` | Métricas y desperdicios del equipo, con sus archivos para Excel |
 | `python probar.py --tablero` | Resumen de los 6 equipos en `registro/TABLERO.md` |
 
 ## 11. Datos útiles para programar

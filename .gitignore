@@ -3,6 +3,7 @@ datos/
 
 # Archivos para pegar en Excel (se generan con probar.py)
 registro/metricas_*.txt
+registro/desperdicios_*.txt
 
 # Python
 __pycache__/
