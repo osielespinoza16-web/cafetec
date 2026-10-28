@@ -294,7 +294,7 @@ def mostrar_metricas(modulo):
                 str(m["defectos"]), str(m["min_corrigiendo"]), m["primera"],
             ]) + "\r\n")
     print(f"\nArchivo para Excel: registro/{salida.name}")
-    print("Ábrelo, selecciona todo (Ctrl+A), copia y pégalo en la celda 'Act.' de la tabla A de tu hoja.")
+    print("Ábrelo, selecciona todo (Ctrl+A), copia y pégalo en la hoja Flujo, en la celda ◀ de tu equipo (columna Act.).")
 
 
 def tablero():

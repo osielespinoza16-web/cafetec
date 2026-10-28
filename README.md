@@ -74,9 +74,9 @@ atora el flujo. Columnas: *Todo → In Progress → Revision → Done*.
 | Minuto | Equipos que programan | Equipos que no programan ese día |
 |---|---|---|
 | 0–5 | `git pull`, crear rama, iniciar la actividad 1 | Se sientan con el equipo que van a observar |
-| 5–35 | Actividades 1, 2 y 3 (≈10 min cada una), un commit por actividad | **Observan** y anotan desperdicios que vean (tabla B de la hoja); leen sus propios docstrings |
+| 5–35 | Actividades 1, 2 y 3 (≈10 min cada una), un commit por actividad | **Observan** y anotan desperdicios que vean (hoja Desperdicios de la bitácora); leen sus propios docstrings |
 | 35–45 | Abren el PR con sus métricas | **Revisan** el PR con `REVISION.md` y lo aprueban |
-| 45–55 | Merge, `--metricas` y retrospectiva en la hoja de Excel | Retrospectiva juntos |
+| 45–55 | Merge, `--metricas` y retrospectiva en la bitácora (Excel) | Retrospectiva juntos |
 
 Al terminar el día 1, el grupo elige **1 o 2 mejoras** de la retrospectiva y los equipos del
 día 2 las aplican (eso es *kaizen*). Al final se comparan los dos días con datos.
@@ -136,10 +136,10 @@ métricas va en archivos separados por módulo.
 | Eficiencia de flujo | % del lead time que no fue espera | `probar.py --metricas` |
 | Defectos en pruebas | Pruebas que fallaron y luego se corrigieron | Automático |
 | Calidad a la primera | ¿La primera corrida de pruebas ya pasó todo? | Automático |
-| Defectos en revisión | Cambios que pidió el equipo revisor | Comentarios del PR → hoja de Excel |
-| Espera de revisión | Tiempo entre que se abre el PR y se aprueba | Hoja de Excel y workflow "Métricas de flujo" |
+| Defectos en revisión | Cambios que pidió el equipo revisor | Comentarios del PR → hoja Revisiones |
+| Espera de revisión | Tiempo entre que se abre el PR y se aprueba | Hoja Revisiones y workflow "Métricas de flujo" |
 | Throughput | Actividades terminadas por equipo y por día | `registro/TABLERO.md` |
-| Desperdicios | Los 7 desperdicios Lean observados | Issues "Desperdicio" y tabla B de la hoja |
+| Desperdicios | Los 7 desperdicios Lean observados | Issues "Desperdicio" y hoja Desperdicios de la bitácora |
 
 Los datos crudos quedan en `registro/` (un archivo por módulo) y suben con el PR, así que
 al final todo el historial está en el repositorio.
@@ -150,9 +150,19 @@ al final todo el historial está en el repositorio.
 python probar.py --metricas pedidos
 ```
 
-Esto genera `registro/metricas_pedidos.txt`. Ábrelo, selecciona todo, copia y pégalo en la
-celda **Act.** de la tabla A de la hoja de tu equipo en `Plantilla_Lean_CafeTec.xlsx`. Luego
-llena a mano la tabla B (desperdicios), la C (revisión del PR) y la D (retrospectiva).
+Esto genera `registro/metricas_pedidos.txt`. Ábrelo, selecciona todo, copia y pégalo en la hoja
+**Flujo** de `Plantilla_Lean_CafeTec.xlsx`, en la celda marcada con ◀ en la fila de tu equipo.
+
+La bitácora tiene una hoja por tema, compartida por todo el grupo:
+
+| Hoja | Quién la llena | Cuándo |
+|---|---|---|
+| **Portada** | Cada equipo escribe sus integrantes | Antes del día 1 |
+| **Flujo** | Cada equipo pega su salida de `--metricas` | Al terminar sus 3 actividades |
+| **Desperdicios** | Observadores, encargado de flujo y revisores | En el momento en que pasa |
+| **Revisiones** | El equipo revisor (horas del PR y cambios pedidos) | Al aprobar el PR |
+| **Retrospectiva** | Cada equipo su renglón; el grupo, el acuerdo y la conclusión | Al final de cada día |
+| **Resultados** | Nadie: se calcula sola, con gráficas | — |
 
 Quien administra el repo, después del último merge del día:
 

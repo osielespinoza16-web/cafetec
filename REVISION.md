@@ -2,7 +2,7 @@
 
 Lo usa el **equipo revisor** (ver la tabla de parejas en el README). Revisen el PR con esta
 lista antes de aprobar. Cada punto que no se cumpla se pide como cambio en un comentario del
-PR y **cuenta como un defecto encontrado en revisión** (anótenlo en la tabla C de su hoja).
+PR y **cuenta como un defecto encontrado en revisión** (anótenlo en la hoja Revisiones de la bitácora).
 
 ## Antes de leer el código
 
@@ -27,5 +27,5 @@ PR y **cuenta como un defecto encontrado en revisión** (anótenlo en la tabla C
 
 1. Aprueben el PR (Review changes -> Approve).
 2. El equipo dueño hace **Squash and merge**.
-3. Anoten en su hoja la hora en que se abrió el PR y la hora en que lo aprobaron
+3. Anoten en la hoja Revisiones de la bitácora la hora en que se abrió el PR y la hora en que lo aprobaron
    (es el tiempo que el trabajo **esperó** revisión).
