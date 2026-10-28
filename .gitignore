@@ -1,0 +1,19 @@
+# Datos locales de la app (cada quien tiene su copia; se regeneran solos)
+datos/
+
+# Archivos para pegar en Excel (se generan con probar.py)
+registro/metricas_*.txt
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Editores y sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+~$*.xlsx

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% from "_macros.html" import estado, etiqueta %}
+{% block titulo %}Usuarios{% endblock %}
+{% block contenido %}
+<h1>Usuarios <small>Equipo 1 · modulos/usuarios.py</small></h1>
+
+<div class="dos-columnas">
+  <section class="panel">
+    <form class="filtros" method="get">
+      <label class="casilla"><input type="checkbox" name="solo_activos" value="1" {{ 'checked' if solo_activos }} onchange="this.form.submit()"> Solo activos</label>
+    </form>
+    <p class="funcion">listar_usuarios() · cambiar_estado_usuario()</p>
+
+    {% if lista.ok %}
+      <table>
+        <thead><tr><th>Id</th><th>Nombre</th><th>Correo</th><th>Rol</th><th>Estado</th><th></th></tr></thead>
+        <tbody>
+        {% for u in lista.valor %}
+          <tr>
+            <td>{{ u.id }}</td><td>{{ u.nombre }}</td><td>{{ u.correo }}</td>
+            <td>{{ etiqueta(u.rol) }}</td><td>{{ etiqueta(u.estado) }}</td>
+            <td class="acciones">
+              <form method="post" action="{{ url_for('cambiar_estado_usuario', usuario_id=u.id) }}" class="en-linea">
+                <input type="hidden" name="activo" value="{{ '0' if u.activo else '1' }}">
+                <button class="boton-texto {{ 'peligro' if u.activo }}">{{ 'Desactivar' if u.activo else 'Activar' }}</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="6" class="vacio">Sin usuarios</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}{{ estado(lista) }}{% endif %}
+  </section>
+
+  <aside class="panel">
+    <h2>Registrar usuario</h2>
+    <p class="funcion">registrar_usuario()</p>
+    <form method="post" action="{{ url_for('registrar_usuario') }}" class="formulario">
+      <label>Nombre <input name="nombre"></label>
+      <label>Correo <input name="correo" placeholder="nombre@cafetec.mx"></label>
+      <label>Rol
+        <select name="rol">{% for r in ROLES %}<option>{{ r }}</option>{% endfor %}</select>
+      </label>
+      <button>Registrar</button>
+    </form>
+  </aside>
+</div>
+{% endblock %}

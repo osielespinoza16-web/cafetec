@@ -1,0 +1,1 @@
+"""Núcleo compartido de CafeTec."""

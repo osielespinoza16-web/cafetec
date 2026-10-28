@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}CafeTec{% endblock %} · CafeTec</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+  <header class="barra">
+    <a class="marca" href="{{ url_for('inicio') }}"><span class="sello">C</span>CafeTec</a>
+    <nav>
+      {% set ruta = request.endpoint or '' %}
+      <a href="{{ url_for('inicio') }}" class="{{ 'activo' if ruta == 'inicio' }}">Inicio</a>
+      <a href="{{ url_for('ver_usuarios') }}" class="{{ 'activo' if 'usuario' in ruta }}">Usuarios</a>
+      <a href="{{ url_for('ver_menu') }}" class="{{ 'activo' if 'menu' in ruta or 'producto' in ruta or 'precio' in ruta }}">Menú</a>
+      <a href="{{ url_for('ver_pedidos') }}" class="{{ 'activo' if 'pedido' in ruta }}">Pedidos</a>
+      <a href="{{ url_for('ver_caja') }}" class="{{ 'activo' if 'caja' in ruta or 'cobrar' in ruta }}">Caja</a>
+      <a href="{{ url_for('ver_inventario') }}" class="{{ 'activo' if 'inventario' in ruta or 'entrada' in ruta or 'descontar' in ruta }}">Inventario</a>
+      <a href="{{ url_for('ver_reportes') }}" class="{{ 'activo' if 'reporte' in ruta }}">Reportes</a>
+    </nav>
+  </header>
+
+  <main class="contenido">
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
+      {% for categoria, mensaje in mensajes %}
+        <div class="alerta alerta-{{ categoria }}">{{ mensaje }}</div>
+      {% endfor %}
+    {% endwith %}
+    {% block contenido %}{% endblock %}
+  </main>
+
+  <footer class="pie">
+    CafeTec · Proyecto base para la actividad Lean Software Development
+    <form method="post" action="{{ url_for('reiniciar') }}" class="en-linea">
+      <button class="boton-texto" onclick="return confirm('¿Restaurar los datos de ejemplo?')">Restaurar datos de ejemplo</button>
+    </form>
+  </footer>
+</body>
+</html>

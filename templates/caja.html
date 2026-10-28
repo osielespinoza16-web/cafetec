@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% from "_macros.html" import estado, etiqueta, dinero %}
+{% block titulo %}Caja{% endblock %}
+{% block contenido %}
+<h1>Caja <small>Equipo 4 · modulos/caja.py</small></h1>
+
+<div class="dos-columnas">
+  <section class="panel">
+    <h2>Pedidos por cobrar</h2>
+    <p class="funcion">calcular_total() · cobrar_pedido()</p>
+    <table>
+      <thead><tr><th>Folio</th><th>Estado</th><th>Total</th><th>Cobrar</th></tr></thead>
+      <tbody>
+      {% for p in por_cobrar %}
+        {% set t = totales[p.id] %}
+        <tr>
+          <td>{{ p.id }}</td><td>{{ etiqueta(p.estado) }}</td>
+          <td>{% if t.ok %}{{ dinero(t.valor) }}{% elif t.pendiente %}<span class="nota">pendiente</span>{% else %}<span class="nota">{{ t.error }}</span>{% endif %}</td>
+          <td>
+            <form method="post" action="{{ url_for('cobrar', pedido_id=p.id) }}" class="en-linea">
+              <select name="metodo">{% for m in METODOS_PAGO %}<option>{{ m }}</option>{% endfor %}</select>
+              <input name="recibido" class="mini" placeholder="Recibido" inputmode="decimal">
+              <button class="boton-texto">Cobrar</button>
+            </form>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="4" class="vacio">No hay pedidos por cobrar</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    <h2 style="margin-top:1.4rem">Últimos tickets</h2>
+    <table>
+      <thead><tr><th>Ticket</th><th>Pedido</th><th>Método</th><th>Total</th><th>Recibido</th><th>Cambio</th><th>Fecha</th></tr></thead>
+      <tbody>
+      {% for t in pagos %}
+        <tr><td>{{ t.id }}</td><td>{{ t.pedido_id }}</td><td>{{ t.metodo }}</td><td>{{ dinero(t.total) }}</td>
+            <td>{{ dinero(t.recibido) }}</td><td>{{ dinero(t.cambio) }}</td><td>{{ t.fecha }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <aside class="panel">
+    <h2>Corte de caja</h2>
+    <p class="funcion">corte_de_caja()</p>
+    <form class="filtros" method="get">
+      <input type="date" name="fecha" value="{{ fecha }}">
+      <button>Ver</button>
+    </form>
+    {% if corte.ok %}
+      <dl class="resumen">
+        <dt>Fecha</dt><dd>{{ corte.valor.fecha }}</dd>
+        <dt>Pagos</dt><dd>{{ corte.valor.num_pagos }}</dd>
+        <dt>Efectivo</dt><dd>{{ dinero(corte.valor.efectivo) }}</dd>
+        <dt>Tarjeta</dt><dd>{{ dinero(corte.valor.tarjeta) }}</dd>
+        <dt>Total</dt><dd>{{ dinero(corte.valor.total) }}</dd>
+      </dl>
+    {% else %}{{ estado(corte) }}{% endif %}
+  </aside>
+</div>
+{% endblock %}

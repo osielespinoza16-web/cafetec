@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% from "_macros.html" import estado, dinero %}
+{% block titulo %}Menú{% endblock %}
+{% block contenido %}
+<h1>Menú <small>Equipo 2 · modulos/catalogo.py</small></h1>
+
+<div class="dos-columnas">
+  <section class="panel">
+    <form class="filtros" method="get">
+      <select name="categoria" onchange="this.form.submit()">
+        <option value="">Todas las categorías</option>
+        {% for c in CATEGORIAS %}<option {{ 'selected' if c == categoria }}>{{ c }}</option>{% endfor %}
+      </select>
+      <a class="boton-texto" href="{{ url_for('ver_menu') }}">Limpiar</a>
+    </form>
+    <p class="funcion">listar_menu() · cambiar_precio()</p>
+
+    {% if lista.ok %}
+      <table>
+        <thead><tr><th>Id</th><th>Producto</th><th>Categoría</th><th>Precio</th><th>Cambiar precio</th></tr></thead>
+        <tbody>
+        {% for p in lista.valor %}
+          <tr>
+            <td>{{ p.id }}</td><td>{{ p.nombre }}</td><td>{{ p.categoria }}</td><td>{{ dinero(p.precio) }}</td>
+            <td>
+              <form method="post" action="{{ url_for('cambiar_precio', producto_id=p.id) }}" class="en-linea">
+                <input name="precio" class="mini" inputmode="decimal" placeholder="{{ p.precio }}">
+                <button class="boton-texto">Guardar</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="5" class="vacio">Sin productos disponibles</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}{{ estado(lista) }}{% endif %}
+  </section>
+
+  <aside class="panel">
+    <h2>Agregar producto</h2>
+    <p class="funcion">agregar_producto()</p>
+    <form method="post" action="{{ url_for('agregar_producto') }}" class="formulario">
+      <label>Nombre <input name="nombre"></label>
+      <label>Categoría
+        <select name="categoria">{% for c in CATEGORIAS %}<option>{{ c }}</option>{% endfor %}</select>
+      </label>
+      <label>Precio <input name="precio" inputmode="decimal" placeholder="35.50"></label>
+      <button>Agregar</button>
+    </form>
+  </aside>
+</div>
+{% endblock %}

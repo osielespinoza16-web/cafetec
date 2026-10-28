@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% from "_macros.html" import estado as estado_funcion, etiqueta %}
+{% block titulo %}Pedidos{% endblock %}
+{% block contenido %}
+<h1>Pedidos <small>Equipo 3 · modulos/pedidos.py</small></h1>
+
+<div class="dos-columnas">
+  <section class="panel">
+    <form class="filtros" method="get">
+      <select name="estado" onchange="this.form.submit()">
+        <option value="">Todos los estados</option>
+        {% for e in ESTADOS %}<option {{ 'selected' if e == estado }}>{{ e }}</option>{% endfor %}
+      </select>
+      <a class="boton-texto" href="{{ url_for('ver_pedidos') }}">Limpiar</a>
+    </form>
+    <p class="funcion">listar_pedidos() · cambiar_estado_pedido()</p>
+
+    {% if lista.ok %}
+      <table>
+        <thead><tr><th>Folio</th><th>Cliente</th><th>Productos</th><th>Piezas</th><th>Fecha</th><th>Estado</th><th>Pagado</th><th>Avanzar a</th></tr></thead>
+        <tbody>
+        {% for p in lista.valor %}
+          <tr>
+            <td>{{ p.id }}</td><td>{{ p.cliente }}</td>
+            <td><ul class="items">{% for i in p['items'] %}<li>{{ i.cantidad }} × {{ nombres.get(i.producto_id, '?') }}</li>{% endfor %}</ul></td>
+            <td>{{ p.piezas }}</td><td>{{ p.fecha }}</td>
+            <td>{{ etiqueta(p.estado) }}</td><td>{{ 'Sí' if p.pagado else 'No' }}</td>
+            <td class="acciones">
+              {% for siguiente in TRANSICIONES[p.estado] %}
+                <form method="post" action="{{ url_for('cambiar_estado_pedido', pedido_id=p.id) }}" class="en-linea">
+                  <input type="hidden" name="estado" value="{{ siguiente }}">
+                  <button class="boton-texto {{ 'peligro' if siguiente == 'cancelado' }}">{{ siguiente }}</button>
+                </form>
+              {% endfor %}
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="8" class="vacio">Sin pedidos</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}{{ estado_funcion(lista) }}{% endif %}
+  </section>
+
+  <aside class="panel">
+    <h2>Nuevo pedido</h2>
+    <p class="funcion">crear_pedido()</p>
+    <form method="post" action="{{ url_for('crear_pedido') }}" class="formulario">
+      <label>Cliente
+        <select name="usuario_id">
+          <option value="">Selecciona…</option>
+          {% for u in clientes %}<option value="{{ u.id }}">{{ u.nombre }}</option>{% endfor %}
+        </select>
+      </label>
+      {% for n in [1, 2, 3] %}
+        <div class="fila-form">
+          <select name="producto_{{ n }}">
+            <option value="">Producto {{ n }}…</option>
+            {% for p in productos %}<option value="{{ p.id }}">{{ p.nombre }} (${{ p.precio }})</option>{% endfor %}
+          </select>
+          <input name="cantidad_{{ n }}" placeholder="Cant." inputmode="numeric">
+        </div>
+      {% endfor %}
+      <button>Crear pedido</button>
+    </form>
+  </aside>
+</div>
+{% endblock %}

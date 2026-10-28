@@ -1,0 +1,63 @@
+"""MÓDULO CATÁLOGO (MENÚ) — Equipo 2 · Día 1.
+
+Cada función tiene su especificación en el docstring. Implementa solo
+el cuerpo; no cambies el nombre ni los parámetros, porque la app y las
+pruebas dependen de ellos.
+
+Datos de un producto:
+    {"id": 1, "nombre": "Café americano", "categoria": "Bebidas",
+     "precio": 25.0, "disponible": True, "stock": 40, "stock_minimo": 10}
+
+(stock y stock_minimo los maneja el Equipo 5 · Inventario; aquí solo
+los inicializas al crear un producto.)
+Para errores de validación lanza ValueError("mensaje claro").
+"""
+
+from nucleo.config import CATEGORIAS, PRECIO_MAXIMO, STOCK_MINIMO
+from nucleo.utilidades import normalizar
+
+
+def listar_menu(repo, categoria=None):
+    """Actividad 1 · Día 1 — Menú del día.
+
+    Regresa solo los productos con disponible True.
+      - categoria: si es None o "", no filtra. Si trae valor, debe estar
+        en CATEGORIAS (si no -> ValueError) y solo regresa esos productos.
+    Orden: primero por categoría, en el MISMO orden en que aparecen en
+    CATEGORIAS (Bebidas, Comidas, Postres, Snacks); dentro de cada
+    categoría, por nombre (normalizado).
+    """
+    # TODO: implementar (Actividad 1 · Día 1)
+    raise NotImplementedError("Actividad 1 pendiente")
+
+
+def agregar_producto(repo, nombre, categoria, precio):
+    """Actividad 2 · Día 1 — Agregar producto con validación.
+
+    Reglas (si alguna falla, lanza ValueError):
+      - nombre no puede quedar vacío (después de quitar espacios).
+      - No puede existir otro producto con el mismo nombre, sin importar
+        mayúsculas ni acentos ("cafe AMERICANO" choca con "Café americano").
+      - categoria: debe estar en CATEGORIAS.
+      - precio: puede llegar como texto ("25.5"); conviértelo a float.
+        Debe ser mayor que 0 y menor o igual a PRECIO_MAXIMO (300).
+        Si no es un número, también es ValueError.
+    Guarda el producto con: nombre sin espacios en los extremos,
+    categoria, precio redondeado a 2 decimales, "disponible": True,
+    "stock": 0 y "stock_minimo": STOCK_MINIMO.
+    Regresa el id asignado.
+    """
+    # TODO: implementar (Actividad 2 · Día 1)
+    raise NotImplementedError("Actividad 2 pendiente")
+
+
+def cambiar_precio(repo, producto_id, nuevo_precio):
+    """Actividad 3 · Día 1 — Cambiar el precio de un producto.
+
+      - Si el producto no existe -> ValueError.
+      - nuevo_precio se valida con las mismas reglas de agregar_producto
+        (texto o número, > 0, <= PRECIO_MAXIMO, redondeado a 2 decimales).
+    Regresa el producto actualizado (el dict que regresa repo.actualizar).
+    """
+    # TODO: implementar (Actividad 3 · Día 1)
+    raise NotImplementedError("Actividad 3 pendiente")

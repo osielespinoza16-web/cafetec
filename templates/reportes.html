@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% from "_macros.html" import estado, dinero %}
+{% block titulo %}Reportes{% endblock %}
+{% block contenido %}
+<h1>Reportes <small>Equipo 6 · modulos/reportes.py</small></h1>
+
+<section class="tarjetas">
+  <article class="tarjeta">
+    <h3>Ventas del día</h3>
+    <p class="funcion">ventas_del_dia()</p>
+    <form class="filtros" method="get">
+      <input type="date" name="fecha" value="{{ fecha }}">
+      <input type="hidden" name="limite" value="{{ limite }}">
+      <button>Ver</button>
+    </form>
+    {% if ventas.ok %}
+      <p class="cifra">{{ dinero(ventas.valor.total) }}</p>
+      <p>{{ ventas.valor.pedidos }} pedidos cobrados el {{ ventas.valor.fecha }}</p>
+    {% else %}{{ estado(ventas) }}{% endif %}
+  </article>
+
+  <article class="tarjeta">
+    <h3>Pedidos por estado</h3>
+    <p class="funcion">resumen_por_estado()</p>
+    {% if estados.ok %}
+      {% set maximo = [estados.valor.values()|max, 1]|max %}
+      <div class="barras">
+        {% for e, n in estados.valor.items() %}
+          <div class="barra-fila">
+            <span>{{ e }}</span>
+            <div class="barra-fondo"><div class="barra-relleno" style="width: {{ (n / maximo * 100)|round }}%"></div></div>
+            <strong>{{ n }}</strong>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}{{ estado(estados) }}{% endif %}
+  </article>
+
+  <article class="tarjeta ancha">
+    <h3>Productos más vendidos</h3>
+    <p class="funcion">productos_mas_vendidos()</p>
+    <form class="filtros" method="get">
+      <input type="hidden" name="fecha" value="{{ fecha }}">
+      <label class="casilla">Mostrar <input name="limite" value="{{ limite }}" class="mini" inputmode="numeric"></label>
+      <button>Aplicar</button>
+    </form>
+    {% if top.ok %}
+      <table>
+        <thead><tr><th>#</th><th>Producto</th><th>Piezas vendidas</th></tr></thead>
+        <tbody>
+        {% for p in top.valor %}
+          <tr><td>{{ loop.index }}</td><td>{{ p.nombre }}</td><td>{{ p.cantidad }}</td></tr>
+        {% else %}
+          <tr><td colspan="3" class="vacio">Sin ventas</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}{{ estado(top) }}{% endif %}
+  </article>
+</section>
+{% endblock %}

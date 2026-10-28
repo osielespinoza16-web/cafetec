@@ -1,0 +1,106 @@
+/* CafeTec — estilo base. NO MODIFICAR durante la actividad. */
+:root {
+  --papel: #f5f0ea;
+  --tarjeta: #fffcf8;
+  --tinta: #2a1f1a;
+  --tenue: #75665c;
+  --linea: #e6dbd0;
+  --verde: #5b3a29;
+  --verde-claro: #f1e6dc;
+  --ambar: #9a5b00;
+  --ambar-claro: #fbefd9;
+  --rojo: #a3302a;
+  --rojo-claro: #f8e4e1;
+  --radio: 8px;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--papel); color: var(--tinta); font: 15px/1.5 var(--sans); }
+h1, h2, h3 { font-family: var(--serif); font-weight: normal; margin: 0 0 .5rem; }
+h1 { font-size: 1.9rem; margin-bottom: 1rem; }
+h1 small { font: 13px var(--sans); color: var(--tenue); margin-left: .5rem; }
+h2 { font-size: 1.25rem; margin-top: .5rem; }
+h3 { font-size: 1rem; color: var(--tenue); }
+a { color: var(--verde); }
+
+.barra { display: flex; align-items: center; gap: 2rem; padding: .8rem 2rem; background: var(--verde); color: #fff; flex-wrap: wrap; }
+.marca { color: #fff; text-decoration: none; font: 1.35rem var(--serif); display: flex; align-items: center; gap: .5rem; }
+.sello { display: inline-grid; place-items: center; width: 30px; height: 30px; border: 2px solid #fff; border-radius: 50%; font-size: 1rem; }
+.barra nav { display: flex; gap: .3rem; flex-wrap: wrap; }
+.barra nav a { color: #f0e0d2; text-decoration: none; padding: .35rem .8rem; border-radius: var(--radio); }
+.barra nav a:hover, .barra nav a.activo { background: rgba(255,255,255,.15); color: #fff; }
+
+.contenido { max-width: 1200px; margin: 0 auto; padding: 1.8rem 1.5rem 3rem; }
+.pie { text-align: center; color: var(--tenue); font-size: 13px; padding: 1.5rem; border-top: 1px solid var(--linea); }
+
+.dos-columnas { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 1.2rem; align-items: start; }
+@media (max-width: 900px) { .dos-columnas { grid-template-columns: 1fr; } }
+
+.panel { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: var(--radio); padding: 1.2rem; margin-bottom: 1.2rem; overflow-x: auto; }
+.panel.angosto { max-width: 480px; }
+
+.tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.2rem; }
+.tarjetas.compactas { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.tarjeta { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: var(--radio); padding: 1rem 1.2rem; }
+.tarjeta.ancha { grid-column: 1 / -1; }
+.tarjeta p { margin: .2rem 0; }
+.cifra { font: 2.2rem/1.1 var(--serif); color: var(--verde); }
+.cifra-mal { color: var(--rojo); }
+
+.funcion { font: 12px var(--mono); color: var(--tenue); margin: 0 0 .7rem; }
+.nota { color: var(--tenue); font-size: 13px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { text-align: left; font-weight: 600; color: var(--tenue); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; border-bottom: 2px solid var(--linea); padding: .5rem; }
+td { border-bottom: 1px solid var(--linea); padding: .55rem .5rem; vertical-align: middle; }
+tbody tr:hover { background: #faf7f0; }
+.fila-mal td { background: var(--rojo-claro); }
+.vacio { text-align: center; color: var(--tenue); padding: 1.5rem; }
+.acciones { white-space: nowrap; text-align: right; }
+.acciones a { margin-right: .6rem; }
+
+.etiqueta { display: inline-block; padding: .1rem .55rem; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.etiqueta-ok { background: var(--verde-claro); color: var(--verde); }
+.etiqueta-aviso { background: var(--ambar-claro); color: var(--ambar); }
+.etiqueta-mal { background: var(--rojo-claro); color: var(--rojo); }
+.etiqueta-neutra { background: var(--linea); color: var(--tenue); }
+
+.formulario { display: grid; gap: .7rem; }
+.formulario label { display: grid; gap: .25rem; font-size: 13px; color: var(--tenue); }
+.filtros { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin-bottom: .6rem; }
+.filtros input[type=search] { flex: 1 1 200px; }
+.casilla { display: flex; gap: .3rem; align-items: center; font-size: 14px; }
+input, select { font: inherit; padding: .45rem .6rem; border: 1px solid var(--linea); border-radius: var(--radio); background: #fff; color: var(--tinta); }
+input:focus, select:focus { outline: 2px solid var(--verde); outline-offset: -1px; }
+button { font: inherit; font-weight: 600; padding: .5rem 1rem; border: 0; border-radius: var(--radio); background: var(--verde); color: #fff; cursor: pointer; }
+button:hover { filter: brightness(1.1); }
+.boton-texto { background: none; color: var(--verde); padding: .2rem .3rem; font-weight: normal; text-decoration: underline; cursor: pointer; }
+.boton-texto.peligro { color: var(--rojo); }
+.botones { display: flex; gap: .8rem; align-items: center; }
+.en-linea { display: inline; }
+
+.alerta { padding: .7rem 1rem; border-radius: var(--radio); margin-bottom: 1rem; border-left: 4px solid; }
+.alerta-exito { background: var(--verde-claro); border-color: var(--verde); }
+.alerta-error { background: var(--rojo-claro); border-color: var(--rojo); }
+.alerta-pendiente { background: var(--ambar-claro); border-color: var(--ambar); }
+.pendiente { background: repeating-linear-gradient(-45deg, var(--ambar-claro), var(--ambar-claro) 10px, #fdf5e6 10px, #fdf5e6 20px); color: var(--ambar); padding: .8rem 1rem; border-radius: var(--radio); font-size: 14px; }
+.pendiente strong { display: block; }
+
+.resumen { display: grid; grid-template-columns: 1fr auto; gap: .3rem 1rem; margin: 0 0 1rem; }
+.resumen dt { color: var(--tenue); }
+.resumen dd { margin: 0; font-weight: 600; }
+ol { padding-left: 1.2rem; margin: 0; }
+
+/* Extras de CafeTec */
+.etiqueta-info { background: #e1ecf4; color: #1d4e75; }
+.equipo { display: inline-block; font: 600 11px var(--sans); letter-spacing: .05em; text-transform: uppercase; color: var(--tenue); border: 1px solid var(--linea); border-radius: 999px; padding: .1rem .55rem; margin-left: .4rem; vertical-align: middle; }
+.items { margin: 0; padding-left: 1rem; font-size: 13px; }
+.fila-form { display: grid; grid-template-columns: 1fr 70px; gap: .4rem; }
+.mini { width: 90px; }
+.barras { display: grid; gap: .45rem; }
+.barra-fila { display: grid; grid-template-columns: 110px 1fr 32px; gap: .5rem; align-items: center; font-size: 14px; }
+.barra-fondo { background: var(--linea); border-radius: 4px; height: 12px; overflow: hidden; }
+.barra-relleno { background: var(--verde); height: 100%; }

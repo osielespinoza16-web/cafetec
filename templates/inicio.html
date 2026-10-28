@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% from "_macros.html" import estado, dinero %}
+{% block titulo %}Inicio{% endblock %}
+{% block contenido %}
+<h1>Panel general</h1>
+<p class="nota">Cada tarjeta se llena cuando el equipo responsable implementa la función indicada.
+Día 1: equipos 1, 2 y 3 · Día 2: equipos 4, 5 y 6.</p>
+
+<section class="tarjetas">
+  <article class="tarjeta">
+    <h3>Usuarios activos <span class="equipo">Eq. 1</span></h3>
+    <p class="funcion">listar_usuarios()</p>
+    {% if usuarios.ok %}
+      <p class="cifra">{{ usuarios.valor|length }}</p>
+      <p>{{ usuarios.valor|selectattr('rol', 'equalto', 'admin')|list|length }} admins</p>
+    {% else %}{{ estado(usuarios) }}{% endif %}
+  </article>
+
+  <article class="tarjeta">
+    <h3>Menú del día <span class="equipo">Eq. 2</span></h3>
+    <p class="funcion">listar_menu()</p>
+    {% if menu.ok %}
+      <p class="cifra">{{ menu.valor|length }}</p>
+      <p>productos disponibles</p>
+    {% else %}{{ estado(menu) }}{% endif %}
+  </article>
+
+  <article class="tarjeta">
+    <h3>Por atender <span class="equipo">Eq. 6</span></h3>
+    <p class="funcion">resumen_por_estado()</p>
+    {% if estados.ok %}
+      <p class="cifra">{{ estados.valor.pendiente + estados.valor.preparando }}</p>
+      <p>{{ estados.valor.pendiente }} pendientes · {{ estados.valor.preparando }} en preparación</p>
+    {% else %}{{ estado(estados) }}{% endif %}
+  </article>
+
+  <article class="tarjeta">
+    <h3>Ventas de hoy <span class="equipo">Eq. 6</span></h3>
+    <p class="funcion">ventas_del_dia()</p>
+    {% if ventas.ok %}
+      <p class="cifra">{{ dinero(ventas.valor.total) }}</p>
+      <p>{{ ventas.valor.pedidos }} pedidos cobrados</p>
+    {% else %}{{ estado(ventas) }}{% endif %}
+  </article>
+
+  <article class="tarjeta">
+    <h3>Corte de caja <span class="equipo">Eq. 4</span></h3>
+    <p class="funcion">corte_de_caja()</p>
+    {% if corte.ok %}
+      <p class="cifra">{{ dinero(corte.valor.total) }}</p>
+      <p>efectivo {{ dinero(corte.valor.efectivo) }} · tarjeta {{ dinero(corte.valor.tarjeta) }}</p>
+    {% else %}{{ estado(corte) }}{% endif %}
+  </article>
+
+  <article class="tarjeta">
+    <h3>Stock bajo <span class="equipo">Eq. 5</span></h3>
+    <p class="funcion">productos_stock_bajo()</p>
+    {% if bajo.ok %}
+      <p class="cifra {{ 'cifra-mal' if bajo.valor }}">{{ bajo.valor|length }}</p>
+      <p>productos por resurtir</p>
+    {% else %}{{ estado(bajo) }}{% endif %}
+  </article>
+</section>
+{% endblock %}

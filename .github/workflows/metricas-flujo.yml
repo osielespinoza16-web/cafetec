@@ -1,0 +1,45 @@
+name: Métricas de flujo
+
+# Se corre a mano al final de cada día: pestaña Actions -> "Métricas de flujo" -> Run workflow.
+# Calcula, con los datos de GitHub, cuánto tardó cada issue (tarjeta) en cerrarse y cuánto
+# esperó cada Pull Request a que lo revisaran. Publica los resultados como dos issues nuevos.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  metricas:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: read
+    steps:
+      - name: Métricas de las tarjetas (issues)
+        uses: github/issue-metrics@v3
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEARCH_QUERY: "repo:${{ github.repository }} is:issue label:actividad"
+
+      - name: Publicar reporte de tarjetas
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "Métricas de flujo · tarjetas"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          content-filepath: ./issue_metrics.md
+          labels: metricas
+
+      - name: Métricas de los Pull Requests
+        uses: github/issue-metrics@v3
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEARCH_QUERY: "repo:${{ github.repository }} is:pr"
+
+      - name: Publicar reporte de Pull Requests
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "Métricas de flujo · Pull Requests"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          content-filepath: ./issue_metrics.md
+          labels: metricas

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% from "_macros.html" import estado %}
+{% block titulo %}Inventario{% endblock %}
+{% block contenido %}
+<h1>Inventario <small>Equipo 5 · modulos/inventario.py</small></h1>
+
+<div class="dos-columnas">
+  <section class="panel">
+    <h2>Stock bajo</h2>
+    <p class="funcion">productos_stock_bajo()</p>
+    {% if bajo.ok %}
+      <table>
+        <thead><tr><th>Id</th><th>Producto</th><th>Stock</th><th>Mínimo</th><th>Faltan</th></tr></thead>
+        <tbody>
+        {% for p in bajo.valor %}
+          <tr class="{{ 'fila-mal' if p.stock == 0 }}"><td>{{ p.id }}</td><td>{{ p.nombre }}</td><td>{{ p.stock }}</td><td>{{ p.stock_minimo }}</td><td>{{ p.faltante }}</td></tr>
+        {% else %}
+          <tr><td colspan="5" class="vacio">Todo el inventario está arriba del mínimo</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}{{ estado(bajo) }}{% endif %}
+
+    <h2 style="margin-top:1.4rem">Pedidos cobrados sin descontar</h2>
+    <p class="funcion">descontar_pedido()</p>
+    <table>
+      <thead><tr><th>Folio</th><th>Productos</th><th></th></tr></thead>
+      <tbody>
+      {% for p in por_descontar %}
+        <tr>
+          <td>{{ p.id }}</td>
+          <td><ul class="items">{% for i in p['items'] %}<li>{{ i.cantidad }} × {{ nombres.get(i.producto_id, '?') }}</li>{% endfor %}</ul></td>
+          <td class="acciones">
+            <form method="post" action="{{ url_for('descontar', pedido_id=p.id) }}" class="en-linea">
+              <button class="boton-texto">Descontar</button>
+            </form>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td colspan="3" class="vacio">No hay pedidos pendientes de descontar</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    <h2 style="margin-top:1.4rem">Existencias</h2>
+    <table>
+      <thead><tr><th>Id</th><th>Producto</th><th>Stock</th><th>Mínimo</th></tr></thead>
+      <tbody>
+      {% for p in productos %}
+        <tr><td>{{ p.id }}</td><td>{{ p.nombre }}</td><td>{{ p.stock }}</td><td>{{ p.stock_minimo }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <aside class="panel">
+    <h2>Entrada de mercancía</h2>
+    <p class="funcion">registrar_entrada()</p>
+    <form method="post" action="{{ url_for('registrar_entrada') }}" class="formulario">
+      <label>Producto
+        <select name="producto_id">
+          <option value="">Selecciona…</option>
+          {% for p in productos %}<option value="{{ p.id }}">{{ p.nombre }}</option>{% endfor %}
+        </select>
+      </label>
+      <label>Cantidad <input name="cantidad" inputmode="numeric"></label>
+      <button>Registrar entrada</button>
+    </form>
+  </aside>
+</div>
+{% endblock %}

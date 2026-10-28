@@ -1,0 +1,21 @@
+name: Pruebas
+
+# Construir con integridad (Lean): cada Pull Request corre todas las pruebas.
+# Las funciones que aún no se programan aparecen como "skipped", no como error.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+      - name: Correr las pruebas
+        run: python -m pytest -q -rs
