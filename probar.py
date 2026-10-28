@@ -98,7 +98,7 @@ def en_progreso(tarjetas):
     return [a for a, t in tarjetas.items() if t["inicio"] and not t["fin"]]
 
 
-# ====================================================================== flujo (kanban)
+# ====================================================================== flujo (sistema pull)
 def iniciar(modulo, actividad):
     tarjetas = estado_tarjetas(modulo)
     t = tarjetas[actividad]
@@ -116,7 +116,7 @@ def iniciar(modulo, actividad):
     anotar_flujo(modulo, actividad, "INICIO", FUNCIONES[modulo][int(actividad) - 1])
     print(f"Actividad {actividad} de {modulo} EN PROGRESO desde las {ahora()[11:16]}: "
           f"{FUNCIONES[modulo][int(actividad) - 1]}()")
-    print("Recuerda mover también la tarjeta en el tablero de GitHub a 'En progreso'.")
+    print("Recuerda mover también la tarjeta en el tablero de flujo de GitHub a 'In Progress'.")
 
 
 def bloquear(modulo, motivo):
@@ -185,7 +185,7 @@ def correr_pruebas(modulo, actividad=None):
                     anotar_flujo(modulo, act, "DESBLOQUEO")
                 anotar_flujo(modulo, act, "FIN")
                 print(f"     Tarjeta cerrada. Lead time: {minutos(t['inicio'], ahora())} min. "
-                      f"Mueve la tarjeta a 'Revisión/Hecho' en GitHub.")
+                      f"Mueve la tarjeta a 'Revision' en el tablero de flujo.")
 
     ejecucion = nuevas[0]["ejecucion"]
     defectos = detectar_defectos(modulo)

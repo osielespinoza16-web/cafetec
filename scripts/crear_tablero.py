@@ -4,7 +4,7 @@ Lo corre UNA sola vez quien administra el repositorio, después de subirlo.
 Necesita GitHub CLI (https://cli.github.com) con sesión iniciada: gh auth login
 
     python scripts/crear_tablero.py               Crea etiquetas e issues
-    python scripts/crear_tablero.py --proyecto    Además crea el tablero (GitHub Projects)
+    python scripts/crear_tablero.py --proyecto    Además crea el tablero de flujo (GitHub Projects)
                                                   y agrega las 18 tarjetas.
                                                   Antes: gh auth refresh -s project
 
@@ -84,8 +84,8 @@ def main():
 
     if "--proyecto" in sys.argv:
         dueño = json.loads(gh("repo", "view", "--json", "owner"))["owner"]["login"]
-        print("Creando el tablero en GitHub Projects...")
-        proyecto = json.loads(gh("project", "create", "--owner", dueño, "--title", "Tablero CafeTec",
+        print("Creando el tablero de flujo en GitHub Projects...")
+        proyecto = json.loads(gh("project", "create", "--owner", dueño, "--title", "Tablero de flujo CafeTec",
                                  "--format", "json"))
         numero = str(proyecto["number"])
         urls = [i["url"] for i in json.loads(gh("issue", "list", "--label", "actividad", "--state", "all",

@@ -51,9 +51,23 @@ Lee completo el docstring de las 3 funciones de tu módulo **antes** de la sesi�
 | Construir con calidad | Pruebas automáticas en cada corrida y en cada PR (GitHub Actions) |
 | Amplificar el aprendizaje | La retrospectiva del día 1 alimenta la forma de trabajar del día 2 |
 | Decidir lo más tarde posible | Los módulos son independientes; nadie espera a otro para programar |
-| Entregar rápido | Lotes pequeños: una función por tarjeta, un PR por equipo al día |
-| Empoderar al equipo | Cada equipo jala su trabajo del tablero y decide cómo resolverlo |
+| Entregar rápido | Sistema pull: cada equipo jala su siguiente tarjeta del tablero de flujo; lotes pequeños (una función por tarjeta) |
+| Empoderar al equipo | Nadie asigna trabajo: cada equipo decide cuándo jalar y cómo resolver su tarjeta |
 | Ver el todo | El tablero (`registro/TABLERO.md`) compara a los 6 equipos y a los 2 días |
+
+### El tablero de flujo (herramientas de LSD)
+
+El [tablero de flujo](https://github.com/users/osielespinoza16-web/projects/2) aplica dos
+herramientas del principio **"Entregar lo más rápido posible"** del libro de Mary y Tom
+Poppendieck, *Lean Software Development: An Agile Toolkit*:
+
+- **Sistemas pull:** el trabajo no se asigna, cada equipo *jala* su siguiente tarjeta cuando
+  termina la anterior.
+- **Teoría de colas:** limitar el trabajo en curso (WIP = 1) y reducir las colas, por ejemplo
+  los PR que esperan revisión, para que el trabajo fluya.
+
+También sirve al principio **"Ver el todo"**: cualquiera ve en qué va cada equipo y dónde se
+atora el flujo. Columnas: *Todo → In Progress → Revision → Done*.
 
 ## 4. Agenda de cada sesión (≤ 55 min)
 
@@ -76,7 +90,7 @@ día 2 las aplican (eso es *kaizen*). Al final se comparan los dos días con dat
 
 ## 6. Ciclo de cada actividad (una tarjeta)
 
-1. **Jalar.** Mueve la tarjeta a *En progreso* en el tablero de GitHub y corre:
+1. **Jalar.** Mueve la tarjeta a *In Progress* en el tablero de flujo y corre:
    ```bash
    python probar.py --iniciar pedidos 1
    ```
@@ -92,7 +106,7 @@ día 2 las aplican (eso es *kaizen*). Al final se comparan los dos días con dat
    python probar.py --bloqueo pedidos "esperando respuesta del profe"
    python probar.py --desbloqueo pedidos
    ```
-5. **Cerrar.** Commit y mueve la tarjeta a *Revisión*:
+5. **Cerrar.** Commit y mueve la tarjeta a *Revision* en el tablero de flujo:
    ```bash
    git add modulos/pedidos.py registro/
    git commit -m "Actividad 1: crear_pedido"
@@ -186,7 +200,7 @@ Las fechas se guardan como texto `"AAAA-MM-DD"`.
 2. En *Settings → Collaborators*, agrega a todos los integrantes con permiso de escritura.
 3. En *Settings → Branches*, protege `main`: pide 1 aprobación antes de hacer merge y que
    pase la revisión **Pruebas**.
-4. Crea las etiquetas, las 18 tarjetas y el tablero (necesita [GitHub CLI](https://cli.github.com)):
+4. Crea las etiquetas, las 18 tarjetas y el tablero de flujo (necesita [GitHub CLI](https://cli.github.com)):
    ```bash
    gh auth login
    gh auth refresh -s project
