@@ -160,16 +160,51 @@ día 2 las aplican (eso es *kaizen*). Al final se comparan los dos días con dat
 
 ## 7. Git: una rama y un PR por equipo
 
+Cada equipo elige **un developer**: el integrante que hace los commits y abre el Pull Request.
+Ese integrante debe estar invitado como colaborador del repositorio.
+
+### Nombre de la rama (debe ser idéntico)
+
+| Equipo | Rama |
+|---|---|
+| 1 · Usuarios | `equipo-1-usuarios` |
+| 2 · Catálogo | `equipo-2-catalogo` |
+| 3 · Pedidos | `equipo-3-pedidos` |
+| 4 · Caja | `equipo-4-caja` |
+| 5 · Inventario | `equipo-5-inventario` |
+| 6 · Reportes | `equipo-6-reportes` |
+
+Todo en minúsculas, con guiones, sin acentos ni espacios.
+
+### Crear la rama antes de la clase (solo el developer)
+
+1. Acepta la invitación al repositorio (llega a tu correo o en <https://github.com/notifications>).
+2. En la terminal, un comando a la vez (ejemplo con el Equipo 3; cambia el nombre por el de tu rama):
+   ```bash
+   git clone https://github.com/osielespinoza16-web/cafetec.git
+   cd cafetec
+   git checkout -b equipo-3-pedidos
+   git push -u origin equipo-3-pedidos
+   ```
+3. Revisa en GitHub, en el botón de ramas (arriba a la izquierda, donde dice `main`), que tu rama
+   aparezca con el nombre exacto.
+4. Verifica en tu terminal que estás en tu rama: `git branch` debe marcar tu rama con `*`.
+
+Si ya habías clonado antes, en lugar de `git clone` entra a la carpeta y corre `git pull` antes de
+`git checkout -b`.
+
+### El día de la sesión
+
 ```bash
-git checkout main
-git pull
-git checkout -b equipo-3-pedidos
+git checkout equipo-3-pedidos
+git pull origin main
 # ... actividades 1, 2 y 3, con un commit cada una ...
-git push -u origin equipo-3-pedidos
+git push
 ```
 
-Luego abren el Pull Request en GitHub (la plantilla ya trae lo que deben llenar) y escriben
-`Closes #N` por cada tarjeta. El equipo revisor aprueba y el equipo dueño hace
+`git pull origin main` trae lo que otros equipos ya unieron (importante para el día 2).
+Luego abren el Pull Request en GitHub de su rama hacia `main` (la plantilla ya trae lo que deben
+llenar) y escriben `Closes #N` por cada tarjeta. El equipo revisor aprueba y el developer hace
 **Squash and merge**. No hay conflictos: cada equipo toca archivos distintos, y el registro de
 métricas va en archivos separados por módulo.
 
