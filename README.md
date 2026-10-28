@@ -111,15 +111,57 @@ atora el flujo. Columnas: *Todo → In Progress → Revision → Done*.
 La clase puede ser remota: nadie necesita ver la pantalla de otro equipo. Cada equipo trabaja
 en su propia llamada o sala, y los desperdicios los registra el mismo equipo con `probar.py`.
 
-| Minuto | Equipos que programan | Equipos que no programan ese día |
+| Minuto | Equipos que programan | Equipos revisores (no programan ese día) |
 |---|---|---|
-| 0–5 | `git pull`, crear rama, iniciar la actividad 1 | Leen el docstring del módulo que van a revisar |
-| 5–35 | Actividades 1, 2 y 3 (≈10 min cada una), un commit por actividad; el encargado de flujo anota desperdicios con `--desperdicio` | Disponibles para dudas; preparan su propio módulo del otro día |
+| 0–5 | `git pull`, crear rama, iniciar la actividad 1 | Confirman que su rama existe y que `python app.py` funciona |
+| 5–35 | Actividades 1, 2 y 3 (≈10 min cada una), un commit por actividad; el encargado de flujo anota desperdicios con `--desperdicio` | Leen el módulo que van a revisar y preparan el suyo (detalle abajo) |
 | 35–45 | Abren el PR con sus métricas | **Revisan** el PR en GitHub con `REVISION.md` y lo aprueban |
-| 45–55 | Merge, `--metricas` y pegar en la bitácora (Excel) | Retrospectiva juntos |
+| 45–55 | Merge, `--metricas` y pegar en la bitácora (Excel) | Retrospectiva juntos y eligen la mejora que aplicarán |
 
 Al terminar el día 1, el grupo elige **1 o 2 mejoras** de la retrospectiva y los equipos del
 día 2 las aplican (eso es *kaizen*). Al final se comparan los dos días con datos.
+
+### Qué hacen los equipos revisores
+
+El día que un equipo **no programa** es **revisor**: el día 1 lo son los equipos 4, 5 y 6, y el
+día 2 los equipos 1, 2 y 3. Con la clase remota no observan a nadie; su trabajo es revisar el
+código de su pareja y prepararse para su propio día.
+
+| Revisor | Revisa a | Por qué esa pareja |
+|---|---|---|
+| Equipo 4 · Caja | Equipo 3 · Pedidos | Caja cobra los pedidos |
+| Equipo 5 · Inventario | Equipo 2 · Catálogo | Inventario descuenta productos del catálogo |
+| Equipo 6 · Reportes | Equipo 1 · Usuarios | Reportes lee usuarios y ventas |
+
+El día 2 se invierte: el Equipo 3 revisa al 4, el 2 al 5 y el 1 al 6.
+
+**Paso a paso del revisor**
+
+1. **Minutos 0–5 · Estar listos.** Su developer confirma que su rama ya existe (por ejemplo,
+   `equipo-4-caja`) y que `python app.py` funciona en su computadora.
+2. **Minutos 5–35 · Prepararse.**
+   - Leen los docstrings del módulo que van a revisar (el Equipo 4 lee `modulos/pedidos.py`)
+     para saber qué debe cumplir el código.
+   - Leen las 3 funciones de su propio módulo para el día que les toca programar.
+   - Escriben en la hoja **Retrospectiva** de la bitácora, en su renglón, cómo planean
+     organizarse cuando les toque programar.
+   - Quedan disponibles por si el equipo que programa tiene dudas.
+3. **Minutos 35–45 · Revisar el Pull Request.** Estén atentos: en cuanto su pareja abra el PR,
+   cada minuto que tarden cuenta como **espera** (desperdicio).
+   - En GitHub, pestaña **Pull requests**, abren el PR de su pareja y van a **Files changed**.
+   - Revisan el código con [REVISION.md](REVISION.md) y confirman que la revisión automática
+     (**Pruebas**) esté en verde.
+   - Si algo falla: comentan en la línea y eligen **Review changes → Request changes**. Cada
+     cambio pedido cuenta como **defecto encontrado en revisión**.
+   - Si está bien: **Review changes → Approve**.
+   - Anotan en la bitácora, hoja **Revisiones**: hora en que se abrió el PR, hora en que lo
+     aprobaron y cuántos cambios pidieron.
+4. **Minutos 45–55 · Retrospectiva.** Participan y ayudan a elegir la mejora que ellos mismos
+   aplicarán cuando les toque programar.
+
+**Por qué importa en LSD:** sin su aprobación nada entra a `main` (*construir con calidad*);
+si tardan en revisar, generan espera (*eliminar desperdicio*); y como usan ese módulo cuando
+les toca programar, revisarlo antes les ayuda a trabajar mejor (*amplificar el aprendizaje*).
 
 ## 5. Roles dentro del equipo (rotan en cada actividad)
 
