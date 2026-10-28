@@ -21,7 +21,7 @@ catálogo y Reportes lee usuarios y ventas. Quien **usa** un módulo es quien lo
 Necesitas Python 3.10 o superior y Git.
 
 ```bash
-git clone <url-del-repo>
+git clone https://github.com/osielespinoza16-web/cafetec.git
 cd cafetec
 pip install -r requirements.txt
 python app.py
@@ -32,6 +32,41 @@ Abre <http://127.0.0.1:5000>. Las secciones que aún no se programan aparecen co
 `PENDIENTE (función sin implementar)`.
 
 Lee completo el docstring de las 3 funciones de tu módulo **antes** de la sesión.
+
+### Si usas Windows
+
+1. **Abre PowerShell:** menú Inicio, escribe "PowerShell" y ábrelo.
+2. **Instala Python y Git** (si no los tienes), un comando a la vez:
+   ```powershell
+   winget install Python.Python.3.12
+   winget install Git.Git
+   ```
+   Al terminar, **cierra PowerShell y vuelve a abrirlo** para que reconozca los programas nuevos.
+3. **Descarga el proyecto e instala lo que necesita** (solo la primera vez), un comando a la vez:
+   ```powershell
+   git clone https://github.com/osielespinoza16-web/cafetec.git
+   cd cafetec
+   pip install -r requirements.txt
+   ```
+4. **Enciende la app:** `python app.py` y espera a que diga `Running on http://127.0.0.1:5000`.
+5. **Abre la página** en el navegador: <http://127.0.0.1:5000>.
+
+Las siguientes veces solo necesitas:
+
+```powershell
+cd cafetec
+git pull
+python app.py
+```
+
+Tómalo en cuenta:
+
+- Si no reconoce `python` o `pip`, usa `py` en su lugar: `py app.py`, `py -m pip install -r requirements.txt`.
+- Si no reconoce `git` después de instalarlo, cierra PowerShell y vuelve a abrirlo.
+- **No cierres PowerShell** mientras usas la página. Para apagarla, presiona **Ctrl + C**.
+- `127.0.0.1` es tu propia computadora: cada quien ve su copia. Los cambios de otros equipos te
+  llegan cuando hacen merge y tú corres `git pull`.
+- Escribe un comando por línea y presiona Enter en cada uno; dos comandos en la misma línea dan error.
 
 ## 2. Reglas
 
