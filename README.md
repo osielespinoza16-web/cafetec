@@ -238,17 +238,3 @@ Colecciones: `usuarios`, `productos`, `pedidos`, `pagos`.
 Funciones de apoyo en `nucleo/utilidades.py`: `normalizar()`, `a_fecha()`, `hoy_o()`,
 `total_de_items()`. Reglas de negocio en `nucleo/config.py`.
 Las fechas se guardan como texto `"AAAA-MM-DD"`.
-
-## 12. Para quien administra el repositorio
-
-1. Sube esta carpeta a un repositorio nuevo de GitHub.
-2. En *Settings → Collaborators*, agrega a todos los integrantes con permiso de escritura.
-3. En *Settings → Branches*, protege `main`: pide 1 aprobación antes de hacer merge y que
-   pase la revisión **Pruebas**.
-4. Crea las etiquetas, las 18 tarjetas y el tablero de flujo (necesita [GitHub CLI](https://cli.github.com)):
-   ```bash
-   gh auth login
-   gh auth refresh -s project
-   python scripts/crear_tablero.py --proyecto
-   ```
-5. Sube `Plantilla_Lean_CafeTec.xlsx` a una carpeta compartida (Drive u OneDrive).
