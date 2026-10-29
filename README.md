@@ -14,7 +14,7 @@ flujo de trabajo** con métricas Lean. El **equipo organizador** revisa y aprueb
 | 5 | Inventario | `modulos/inventario.py` | `equipo-5-inventario` |
 | 6 | Reportes | `modulos/reportes.py` | `equipo-6-reportes` |
 
-**Enlaces:** [tablero de flujo](https://github.com/users/osielespinoza16-web/projects/2) · [bitácora en Drive](https://docs.google.com/spreadsheets/d/1FdRbUE111QeKUcwXqgW4CiPu0fcylvST/edit)
+**Enlaces:** [tablero de flujo](https://github.com/users/osielespinoza16-web/projects/2) · [bitácora en Drive](https://docs.google.com/spreadsheets/d/1pS3fS1E22NXk8NkPpbabqToMo7gq2o8L/edit)
 
 Los módulos son independientes: todos trabajan sobre los mismos datos de ejemplo, así que
 ningún equipo espera a otro para programar.
@@ -254,7 +254,7 @@ python probar.py --metricas pedidos
 ```
 
 Esto muestra sus métricas y sus desperdicios, y genera dos archivos para la
-**[bitácora del grupo en Google Drive](https://docs.google.com/spreadsheets/d/1FdRbUE111QeKUcwXqgW4CiPu0fcylvST/edit)**. Se llena ahí, no en el archivo
+**[bitácora del grupo en Google Drive](https://docs.google.com/spreadsheets/d/1pS3fS1E22NXk8NkPpbabqToMo7gq2o8L/edit)**. Se llena ahí, no en el archivo
 `Plantilla_Lean_CafeTec.xlsx` del repositorio (ese es solo la plantilla de respaldo).
 En cada archivo: ábrelo, selecciona todo y copia.
 
