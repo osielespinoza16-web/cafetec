@@ -11,7 +11,6 @@ Datos de un usuario:
 Para errores de validación lanza ValueError("mensaje claro").
 """
 
-from nucleo.config import ROLES
 from nucleo.utilidades import normalizar
 
 
@@ -24,39 +23,11 @@ def listar_usuarios(repo, solo_activos=False):
     A cada usuario le agrega la llave "estado" con el texto "Activo"
     si activo es True, o "Inactivo" si es False.
     """
-    # TODO: implementar (Actividad 1)
-    raise NotImplementedError("Actividad 1 pendiente")
+    usuarios = repo.listar("usuarios")
+    if solo_activos:
+        usuarios = [u for u in usuarios if u["activo"] is True]
 
+    for usuario in usuarios:
+        usuario["estado"] = "Activo" if usuario["activo"] is True else "Inactivo"
 
-def registrar_usuario(repo, nombre, correo, rol="cliente"):
-    """Actividad 2 — Registrar usuario con validación.
-
-    Reglas (si alguna falla, lanza ValueError):
-      - nombre no puede quedar vacío (después de quitar espacios).
-      - correo: se le quitan los espacios de los extremos y se pasa a
-        minúsculas. Debe tener exactamente un "@", con texto antes, y la
-        parte después del "@" debe tener un "." que no esté ni al inicio
-        ni al final  ("ana@cafetec.mx" sí, "ana@mx", "ana@.mx" y "@cafetec.mx" no).
-      - No puede existir otro usuario con el mismo correo (compara ya
-        limpio y en minúsculas).
-      - rol: debe estar en ROLES ("cliente" o "admin").
-    Guarda el usuario con el nombre sin espacios en los extremos, el
-    correo limpio, el rol y "activo": True.
-    Regresa el id asignado.
-    """
-    # TODO: implementar (Actividad 2)
-    raise NotImplementedError("Actividad 2 pendiente")
-
-
-def cambiar_estado_usuario(repo, usuario_id, activo):
-    """Actividad 3 — Activar o desactivar un usuario.
-
-      - Si el usuario no existe -> ValueError.
-      - No se puede desactivar (activo=False) al ÚLTIMO admin activo:
-        la cafetería siempre necesita al menos un admin -> ValueError.
-      - Desactivar a un cliente, o a un admin cuando hay otro admin
-        activo, sí se puede. Activar siempre se puede.
-    Regresa el usuario actualizado (el dict que regresa repo.actualizar).
-    """
-    # TODO: implementar (Actividad 3)
-    raise NotImplementedError("Actividad 3 pendiente")
+    return sorted(usuarios, key=lambda u: normalizar(u["nombre"]))
