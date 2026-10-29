@@ -33,6 +33,18 @@ def ventas_del_dia(repo, fecha):
     return {"fecha": fecha, "pedidos": len(pedidos), "total": total}
 
 
+def _limite_valido(limite):
+    if isinstance(limite, bool):
+        raise ValueError("El límite debe ser un entero mayor o igual a 1")
+    try:
+        numero = float(limite)
+    except (TypeError, ValueError):
+        raise ValueError("El límite debe ser un entero mayor o igual a 1") from None
+    if not numero.is_integer() or numero < 1:
+        raise ValueError("El límite debe ser un entero mayor o igual a 1")
+    return int(numero)
+
+
 def productos_mas_vendidos(repo, limite=3):
     """Actividad 2 — Productos más vendidos.
 
@@ -43,8 +55,18 @@ def productos_mas_vendidos(repo, limite=3):
     ordenada de la cantidad mayor a la menor; si empatan, por nombre
     (normalizado). Regresa como máximo `limite` elementos.
     """
-    # TODO: implementar (Actividad 2)
-    raise NotImplementedError("Actividad 2 pendiente")
+    limite = _limite_valido(limite)
+    cantidades = {}
+    for pedido in repo.filtrar("pedidos", lambda p: p["pagado"]):
+        for item in pedido["items"]:
+            cantidades[item["producto_id"]] = cantidades.get(item["producto_id"], 0) + item["cantidad"]
+    productos = []
+    for producto_id, cantidad in cantidades.items():
+        producto = repo.obtener("productos", producto_id)
+        if producto is not None:
+            productos.append({"producto_id": producto_id, "nombre": producto["nombre"], "cantidad": cantidad})
+    productos.sort(key=lambda p: (-p["cantidad"], normalizar(p["nombre"])))
+    return productos[:limite]
 
 
 def resumen_por_estado(repo):

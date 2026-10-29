@@ -1,3 +1,5 @@
 fecha_hora,modulo,actividad,evento,detalle
 2026-10-29T02:06:46,reportes,1,INICIO,ventas_del_dia
 2026-10-29T02:07:13,reportes,1,FIN,
+2026-10-29T02:11:31,reportes,2,INICIO,productos_mas_vendidos
+2026-10-29T02:11:51,reportes,2,FIN,
