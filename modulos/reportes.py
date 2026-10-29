@@ -78,5 +78,7 @@ def resumen_por_estado(repo):
         {"pendiente": 3, "preparando": 1, "listo": 1,
          "entregado": 3, "cancelado": 2}
     """
-    # TODO: implementar (Actividad 3)
-    raise NotImplementedError("Actividad 3 pendiente")
+    resumen = {estado: 0 for estado in ESTADOS}
+    for pedido in repo.listar("pedidos"):
+        resumen[pedido["estado"]] += 1
+    return resumen

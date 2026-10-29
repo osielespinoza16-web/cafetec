@@ -12,3 +12,6 @@ fecha_hora,ejecucion,modulo,actividad,prueba,resultado,mensaje
 2026-10-29T02:11:51,20261029-021151-471693,reportes,2,limite_invalido[-2],PASA,
 2026-10-29T02:11:51,20261029-021151-471693,reportes,2,limite_invalido[tres],PASA,
 2026-10-29T02:11:51,20261029-021151-471693,reportes,2,limite_invalido[None],PASA,
+2026-10-29T02:13:11,20261029-021311-127349,reportes,3,conteo_por_estado,PASA,
+2026-10-29T02:13:11,20261029-021311-127349,reportes,3,orden_de_las_llaves,PASA,
+2026-10-29T02:13:11,20261029-021311-127349,reportes,3,estados_en_cero,PASA,
