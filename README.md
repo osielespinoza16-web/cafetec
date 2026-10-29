@@ -252,7 +252,36 @@ Esto genera `registro/TABLERO.md` con los 6 equipos y la comparación actividad 
 También puede correr el workflow **Actions → Métricas de flujo → Run workflow** para que
 GitHub calcule el tiempo de cierre de cada tarjeta y la espera de cada PR.
 
-## 10. Comandos
+## 10. Qué entrega cada equipo (evidencia)
+
+Casi toda la evidencia se genera sola con el trabajo. Un equipo terminó cuando tiene todo esto:
+
+**1. En GitHub**
+
+- [ ] Su **Pull Request unido a `main`** (estado *Merged*), con:
+  - el código de sus 3 funciones en `modulos/<su_modulo>.py`;
+  - sus archivos de `registro/` (`ejecuciones_<modulo>.csv` y `flujo_<modulo>.csv`): son la prueba de
+    cuándo empezaron cada actividad, cuántas veces corrieron las pruebas y qué errores tuvieron;
+  - la descripción llena con la plantilla: equipo, módulo, `Closes #N` de sus 3 tarjetas y la tabla
+    de `python probar.py --metricas <modulo>` pegada;
+  - la revisión automática **Pruebas** en verde y la aprobación del equipo organizador.
+- [ ] Sus **3 tarjetas** del tablero de flujo en **Done**.
+
+**2. En la [bitácora de Drive](https://docs.google.com/spreadsheets/d/1sQ9Wb6_6kwUXfG1YO3eiRVZ1eWrsA4ra/edit)**
+
+- [ ] Hoja **Flujo**: `registro/metricas_<modulo>.txt` pegado en la celda ◀ de su equipo.
+- [ ] Hoja **Desperdicios**: `registro/desperdicios_<modulo>.txt` pegado en la primera fila libre.
+- [ ] Hoja **Retrospectiva**: su renglón lleno (qué funcionó, mayor desperdicio, mejora que proponen
+  y si la actividad 3 salió mejor que la 1).
+
+**3. Capturas de pantalla** (solo si el profe pide entregar en plataforma)
+
+- Su sección funcionando en la app (por ejemplo, la pestaña **Caja**).
+- La terminal con `python probar.py <modulo>` diciendo **ACTIVIDAD COMPLETA** en las 3 actividades.
+- La salida de `python probar.py --metricas <modulo>`.
+- Su Pull Request en GitHub con el estado **Merged**.
+
+## 11. Comandos
 
 | Comando | Para qué |
 |---|---|
@@ -267,7 +296,7 @@ GitHub calcule el tiempo de cierre de cada tarjeta y la espera de cada PR.
 | `python probar.py --metricas pedidos` | Métricas y desperdicios del equipo, con sus archivos para Excel |
 | `python probar.py --tablero` | Resumen de los 6 equipos en `registro/TABLERO.md` |
 
-## 11. Datos útiles para programar
+## 12. Datos útiles para programar
 
 ```python
 repo.listar("productos")                         # lista de dicts (copias)
