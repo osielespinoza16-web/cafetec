@@ -1,4 +1,4 @@
-"""MÓDULO PEDIDOS — Equipo 3 · Día 1.
+"""MÓDULO PEDIDOS — Equipo 3.
 
 Cada función tiene su especificación en el docstring. Implementa solo
 el cuerpo; no cambies el nombre ni los parámetros, porque la app y las
@@ -20,7 +20,7 @@ from nucleo.utilidades import hoy_o
 
 
 def crear_pedido(repo, usuario_id, items, hoy=None):
-    """Actividad 1 · Día 1 — Crear pedido.
+    """Actividad 1 — Crear pedido.
 
     `items` es una lista de dicts: [{"producto_id": 1, "cantidad": 2}, ...]
     Reglas (si alguna falla, lanza ValueError y NO guarda nada):
@@ -36,12 +36,12 @@ def crear_pedido(repo, usuario_id, items, hoy=None):
     "pagado": False e "inventario_descontado": False.
     Regresa el id asignado.
     """
-    # TODO: implementar (Actividad 1 · Día 1)
+    # TODO: implementar (Actividad 1)
     raise NotImplementedError("Actividad 1 pendiente")
 
 
 def listar_pedidos(repo, estado=None):
-    """Actividad 2 · Día 1 — Listar pedidos.
+    """Actividad 2 — Listar pedidos.
 
       - estado: si es None o "", regresa todos. Si trae valor, debe estar
         en ESTADOS (si no -> ValueError) y solo regresa esos pedidos.
@@ -50,12 +50,12 @@ def listar_pedidos(repo, estado=None):
       "cliente": el nombre del usuario que hizo el pedido
       "piezas":  la suma de las cantidades de todos sus items
     """
-    # TODO: implementar (Actividad 2 · Día 1)
+    # TODO: implementar (Actividad 2)
     raise NotImplementedError("Actividad 2 pendiente")
 
 
 def cambiar_estado_pedido(repo, pedido_id, nuevo_estado):
-    """Actividad 3 · Día 1 — Avanzar el estado de un pedido.
+    """Actividad 3 — Avanzar el estado de un pedido.
 
       - Si el pedido no existe -> ValueError.
       - nuevo_estado debe estar en ESTADOS -> si no, ValueError.
@@ -65,5 +65,5 @@ def cambiar_estado_pedido(repo, pedido_id, nuevo_estado):
         cancelado; listo -> entregado; entregado y cancelado ya no cambian)
     Regresa el pedido actualizado (el dict que regresa repo.actualizar).
     """
-    # TODO: implementar (Actividad 3 · Día 1)
+    # TODO: implementar (Actividad 3)
     raise NotImplementedError("Actividad 3 pendiente")

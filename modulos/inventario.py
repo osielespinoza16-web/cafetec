@@ -1,4 +1,4 @@
-"""MÓDULO INVENTARIO — Equipo 5 · Día 2.
+"""MÓDULO INVENTARIO — Equipo 5.
 
 Cada función tiene su especificación en el docstring. Implementa solo
 el cuerpo; no cambies el nombre ni los parámetros, porque la app y las
@@ -16,7 +16,7 @@ from nucleo.utilidades import normalizar
 
 
 def registrar_entrada(repo, producto_id, cantidad):
-    """Actividad 1 · Día 2 — Registrar entrada de mercancía.
+    """Actividad 1 — Registrar entrada de mercancía.
 
       - Si el producto no existe -> ValueError.
       - cantidad puede llegar como texto ("12"); conviértela a int.
@@ -24,12 +24,12 @@ def registrar_entrada(repo, producto_id, cantidad):
     Suma la cantidad al stock del producto (repo.actualizar).
     Regresa el stock nuevo (int).
     """
-    # TODO: implementar (Actividad 1 · Día 2)
+    # TODO: implementar (Actividad 1)
     raise NotImplementedError("Actividad 1 pendiente")
 
 
 def descontar_pedido(repo, pedido_id):
-    """Actividad 2 · Día 2 — Descontar del inventario lo que lleva un pedido.
+    """Actividad 2 — Descontar del inventario lo que lleva un pedido.
 
     Reglas (si alguna falla, lanza ValueError y NO cambia ningún stock):
       - El pedido debe existir.
@@ -41,12 +41,12 @@ def descontar_pedido(repo, pedido_id):
     pedido con "inventario_descontado": True.
     Regresa un dict {producto_id: stock_nuevo} con los productos del pedido.
     """
-    # TODO: implementar (Actividad 2 · Día 2)
+    # TODO: implementar (Actividad 2)
     raise NotImplementedError("Actividad 2 pendiente")
 
 
 def productos_stock_bajo(repo):
-    """Actividad 3 · Día 2 — Alerta de stock bajo.
+    """Actividad 3 — Alerta de stock bajo.
 
     Regresa los productos cuyo stock es MENOR O IGUAL a su stock_minimo
     (incluye también los no disponibles).
@@ -54,5 +54,5 @@ def productos_stock_bajo(repo):
     A cada producto le agrega la llave "faltante" = stock_minimo - stock
     (cuántas piezas faltan para llegar al mínimo; puede ser 0).
     """
-    # TODO: implementar (Actividad 3 · Día 2)
+    # TODO: implementar (Actividad 3)
     raise NotImplementedError("Actividad 3 pendiente")

@@ -1,4 +1,4 @@
-"""MÓDULO CATÁLOGO (MENÚ) — Equipo 2 · Día 1.
+"""MÓDULO CATÁLOGO (MENÚ) — Equipo 2.
 
 Cada función tiene su especificación en el docstring. Implementa solo
 el cuerpo; no cambies el nombre ni los parámetros, porque la app y las
@@ -18,7 +18,7 @@ from nucleo.utilidades import normalizar
 
 
 def listar_menu(repo, categoria=None):
-    """Actividad 1 · Día 1 — Menú del día.
+    """Actividad 1 — Menú del día.
 
     Regresa solo los productos con disponible True.
       - categoria: si es None o "", no filtra. Si trae valor, debe estar
@@ -27,12 +27,12 @@ def listar_menu(repo, categoria=None):
     CATEGORIAS (Bebidas, Comidas, Postres, Snacks); dentro de cada
     categoría, por nombre (normalizado).
     """
-    # TODO: implementar (Actividad 1 · Día 1)
+    # TODO: implementar (Actividad 1)
     raise NotImplementedError("Actividad 1 pendiente")
 
 
 def agregar_producto(repo, nombre, categoria, precio):
-    """Actividad 2 · Día 1 — Agregar producto con validación.
+    """Actividad 2 — Agregar producto con validación.
 
     Reglas (si alguna falla, lanza ValueError):
       - nombre no puede quedar vacío (después de quitar espacios).
@@ -47,17 +47,17 @@ def agregar_producto(repo, nombre, categoria, precio):
     "stock": 0 y "stock_minimo": STOCK_MINIMO.
     Regresa el id asignado.
     """
-    # TODO: implementar (Actividad 2 · Día 1)
+    # TODO: implementar (Actividad 2)
     raise NotImplementedError("Actividad 2 pendiente")
 
 
 def cambiar_precio(repo, producto_id, nuevo_precio):
-    """Actividad 3 · Día 1 — Cambiar el precio de un producto.
+    """Actividad 3 — Cambiar el precio de un producto.
 
       - Si el producto no existe -> ValueError.
       - nuevo_precio se valida con las mismas reglas de agregar_producto
         (texto o número, > 0, <= PRECIO_MAXIMO, redondeado a 2 decimales).
     Regresa el producto actualizado (el dict que regresa repo.actualizar).
     """
-    # TODO: implementar (Actividad 3 · Día 1)
+    # TODO: implementar (Actividad 3)
     raise NotImplementedError("Actividad 3 pendiente")

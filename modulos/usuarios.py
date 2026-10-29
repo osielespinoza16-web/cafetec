@@ -1,4 +1,4 @@
-"""MÓDULO USUARIOS — Equipo 1 · Día 1.
+"""MÓDULO USUARIOS — Equipo 1.
 
 Cada función tiene su especificación en el docstring. Implementa solo
 el cuerpo; no cambies el nombre ni los parámetros, porque la app y las
@@ -16,7 +16,7 @@ from nucleo.utilidades import normalizar
 
 
 def listar_usuarios(repo, solo_activos=False):
-    """Actividad 1 · Día 1 — Listar usuarios.
+    """Actividad 1 — Listar usuarios.
 
     Regresa los usuarios ordenados por nombre (sin importar mayúsculas
     ni acentos; usa normalizar()).
@@ -24,12 +24,12 @@ def listar_usuarios(repo, solo_activos=False):
     A cada usuario le agrega la llave "estado" con el texto "Activo"
     si activo es True, o "Inactivo" si es False.
     """
-    # TODO: implementar (Actividad 1 · Día 1)
+    # TODO: implementar (Actividad 1)
     raise NotImplementedError("Actividad 1 pendiente")
 
 
 def registrar_usuario(repo, nombre, correo, rol="cliente"):
-    """Actividad 2 · Día 1 — Registrar usuario con validación.
+    """Actividad 2 — Registrar usuario con validación.
 
     Reglas (si alguna falla, lanza ValueError):
       - nombre no puede quedar vacío (después de quitar espacios).
@@ -44,12 +44,12 @@ def registrar_usuario(repo, nombre, correo, rol="cliente"):
     correo limpio, el rol y "activo": True.
     Regresa el id asignado.
     """
-    # TODO: implementar (Actividad 2 · Día 1)
+    # TODO: implementar (Actividad 2)
     raise NotImplementedError("Actividad 2 pendiente")
 
 
 def cambiar_estado_usuario(repo, usuario_id, activo):
-    """Actividad 3 · Día 1 — Activar o desactivar un usuario.
+    """Actividad 3 — Activar o desactivar un usuario.
 
       - Si el usuario no existe -> ValueError.
       - No se puede desactivar (activo=False) al ÚLTIMO admin activo:
@@ -58,5 +58,5 @@ def cambiar_estado_usuario(repo, usuario_id, activo):
         activo, sí se puede. Activar siempre se puede.
     Regresa el usuario actualizado (el dict que regresa repo.actualizar).
     """
-    # TODO: implementar (Actividad 3 · Día 1)
+    # TODO: implementar (Actividad 3)
     raise NotImplementedError("Actividad 3 pendiente")
