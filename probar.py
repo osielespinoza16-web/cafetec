@@ -314,6 +314,12 @@ def detectar_defectos(modulo):
                  inicio["prueba"].split("[")[0])
         grupos.setdefault(llave, {"inicio": inicio, "fin": fin, "casos": 0})["casos"] += 1
 
+    # Si varios defectos se detectan y se corrigen en las mismas corridas, el tiempo
+    # entre esas corridas se reparte entre ellos para no contarlo varias veces.
+    comparten = defaultdict(int)
+    for (act, ej_ini, ej_fin, base) in grupos:
+        comparten[(ej_ini, ej_fin)] += 1
+
     defectos = []
     for (act, ej_ini, ej_fin, base), g in sorted(grupos.items(), key=lambda x: x[1]["inicio"]["fecha_hora"]):
         mensaje = g["inicio"]["mensaje"]
@@ -321,7 +327,8 @@ def detectar_defectos(modulo):
             "actividad": act,
             "detectado": g["inicio"]["fecha_hora"],
             "corregido": g["fin"]["fecha_hora"] if g["fin"] else "",
-            "minutos": max(minutos(g["inicio"]["fecha_hora"], g["fin"]["fecha_hora"]), 0.1) if g["fin"] else None,
+            "minutos": max(round(minutos(g["inicio"]["fecha_hora"], g["fin"]["fecha_hora"])
+                                 / comparten[(ej_ini, ej_fin)], 1), 0.1) if g["fin"] else None,
             "descripcion": f"{base}" + (f" ({g['casos']} casos)" if g["casos"] > 1 else "") + (f": {mensaje}" if mensaje else ""),
             "ejecucion_inicio": ej_ini,
             "ejecucion_fin": ej_fin,
