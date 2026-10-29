@@ -1,0 +1,46 @@
+fecha_hora,ejecucion,modulo,actividad,prueba,resultado,mensaje
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,crea_y_regresa_id,PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,campos_iniciales,PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,items_con_precio_actual,PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,usuario_inactivo_o_inexistente[4],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,usuario_inactivo_o_inexistente[99],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,sin_items,PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,producto_no_disponible_o_inexistente[7],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,producto_no_disponible_o_inexistente[99],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,cantidad_invalida[0],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,cantidad_invalida[11],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,cantidad_invalida[-1],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,cantidad_invalida[abc],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,cantidad_invalida[1.5],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,cantidad_invalida[None],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:45:32,20261028-214532-411015,pedidos,1,no_guarda_si_un_item_falla,PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,crea_y_regresa_id,PASA,
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,campos_iniciales,FALLA,AssertionError: La fecha se guarda como texto AAAA-MM-DD (usa .isoformat())
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,items_con_precio_actual,PASA,
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,usuario_inactivo_o_inexistente[4],PASA,
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,usuario_inactivo_o_inexistente[99],PASA,
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,sin_items,PASA,
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,producto_no_disponible_o_inexistente[7],PASA,
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,producto_no_disponible_o_inexistente[99],PASA,
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,cantidad_invalida[0],PASA,
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,cantidad_invalida[11],PASA,
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,cantidad_invalida[-1],PASA,
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,cantidad_invalida[abc],PASA,
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,cantidad_invalida[1.5],PASA,
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,cantidad_invalida[None],PASA,
+2026-10-28T21:49:46,20261028-214946-481731,pedidos,1,no_guarda_si_un_item_falla,PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,crea_y_regresa_id,PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,campos_iniciales,PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,items_con_precio_actual,PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,usuario_inactivo_o_inexistente[4],PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,usuario_inactivo_o_inexistente[99],PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,sin_items,PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,producto_no_disponible_o_inexistente[7],PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,producto_no_disponible_o_inexistente[99],PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,cantidad_invalida[0],PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,cantidad_invalida[11],PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,cantidad_invalida[-1],PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,cantidad_invalida[abc],PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,cantidad_invalida[1.5],PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,cantidad_invalida[None],PASA,
+2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,no_guarda_si_un_item_falla,PASA,

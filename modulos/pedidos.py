@@ -36,8 +36,37 @@ def crear_pedido(repo, usuario_id, items, hoy=None):
     "pagado": False e "inventario_descontado": False.
     Regresa el id asignado.
     """
-    # TODO: implementar (Actividad 1)
-    raise NotImplementedError("Actividad 1 pendiente")
+    usuario = repo.obtener("usuarios", usuario_id)
+    if usuario is None or not usuario.get("activo"):
+        raise ValueError("El usuario no existe o no está activo")
+    if not items:
+        raise ValueError("El pedido debe tener al menos un producto")
+
+    items_validados = []
+    for item in items:
+        producto = repo.obtener("productos", item.get("producto_id"))
+        if producto is None or not producto.get("disponible"):
+            raise ValueError(f"El producto {item.get('producto_id')} no existe o no está disponible")
+        try:
+            cantidad = int(item.get("cantidad"))
+        except (TypeError, ValueError):
+            raise ValueError("La cantidad debe ser un número entero")
+        if not 1 <= cantidad <= MAX_POR_PRODUCTO:
+            raise ValueError(f"La cantidad debe estar entre 1 y {MAX_POR_PRODUCTO}")
+        items_validados.append({
+            "producto_id": producto["id"],
+            "cantidad": cantidad,
+            "precio_unitario": producto["precio"],
+        })
+
+    return repo.agregar("pedidos", {
+        "usuario_id": usuario_id,
+        "items": items_validados,
+        "estado": "pendiente",
+        "fecha": hoy_o(hoy).isoformat(),
+        "pagado": False,
+        "inventario_descontado": False,
+    })
 
 
 def listar_pedidos(repo, estado=None):
