@@ -1,0 +1,19 @@
+fecha_hora,ejecucion,modulo,actividad,prueba,resultado,mensaje
+2026-10-28T19:06:52,20261028-190652-385596,catalogo,1,solo_disponibles,PASA,
+2026-10-28T19:06:52,20261028-190652-385596,catalogo,1,orden_por_categoria_y_nombre,PASA,
+2026-10-28T19:06:52,20261028-190652-385596,catalogo,1,orden_ignora_acentos,FALLA,"AssertionError: 'Ácido' va antes de 'Agua' (orden sin acentos, usa normalizar)"
+2026-10-28T19:06:52,20261028-190652-385596,catalogo,1,filtra_por_categoria,PASA,
+2026-10-28T19:06:52,20261028-190652-385596,catalogo,1,categoria_vacia_no_filtra,PASA,
+2026-10-28T19:06:52,20261028-190652-385596,catalogo,1,categoria_invalida,PASA,
+2026-10-28T19:07:42,20261028-190741-881659,catalogo,1,solo_disponibles,PASA,
+2026-10-28T19:07:42,20261028-190741-881659,catalogo,1,orden_por_categoria_y_nombre,PASA,
+2026-10-28T19:07:42,20261028-190741-881659,catalogo,1,orden_ignora_acentos,FALLA,"AssertionError: 'Ácido' va antes de 'Agua' (orden sin acentos, usa normalizar)"
+2026-10-28T19:07:42,20261028-190741-881659,catalogo,1,filtra_por_categoria,PASA,
+2026-10-28T19:07:42,20261028-190741-881659,catalogo,1,categoria_vacia_no_filtra,PASA,
+2026-10-28T19:07:42,20261028-190741-881659,catalogo,1,categoria_invalida,PASA,
+2026-10-28T19:08:03,20261028-190803-885034,catalogo,1,solo_disponibles,PASA,
+2026-10-28T19:08:03,20261028-190803-885034,catalogo,1,orden_por_categoria_y_nombre,PASA,
+2026-10-28T19:08:03,20261028-190803-885034,catalogo,1,orden_ignora_acentos,PASA,
+2026-10-28T19:08:03,20261028-190803-885034,catalogo,1,filtra_por_categoria,PASA,
+2026-10-28T19:08:03,20261028-190803-885034,catalogo,1,categoria_vacia_no_filtra,PASA,
+2026-10-28T19:08:03,20261028-190803-885034,catalogo,1,categoria_invalida,PASA,

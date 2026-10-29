@@ -27,6 +27,12 @@ def listar_menu(repo, categoria=None):
     CATEGORIAS (Bebidas, Comidas, Postres, Snacks); dentro de cada
     categoría, por nombre (normalizado).
     """
+    if categoria and categoria not in CATEGORIAS:
+        raise ValueError(f"Categoría inválida: {categoria}")
+    menu = repo.filtrar("productos", lambda p: p["disponible"] and (not categoria or p["categoria"] == categoria))
+
+    return sorted(menu, key=lambda p: (CATEGORIAS.index(p["categoria"]), normalizar(p["nombre"])))
+
     # TODO: implementar (Actividad 1 · Día 1)
     raise NotImplementedError("Actividad 1 pendiente")
 
