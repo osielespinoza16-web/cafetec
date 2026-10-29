@@ -17,3 +17,75 @@ fecha_hora,ejecucion,modulo,actividad,prueba,resultado,mensaje
 2026-10-28T19:08:03,20261028-190803-885034,catalogo,1,filtra_por_categoria,PASA,
 2026-10-28T19:08:03,20261028-190803-885034,catalogo,1,categoria_vacia_no_filtra,PASA,
 2026-10-28T19:08:03,20261028-190803-885034,catalogo,1,categoria_invalida,PASA,
+2026-10-28T19:22:55,20261028-192255-828283,catalogo,2,agrega_y_regresa_id,FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:22:55,20261028-192255-828283,catalogo,2,limpia_nombre_y_convierte_precio,FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:22:55,20261028-192255-828283,catalogo,2,precio_invalido[0],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:22:55,20261028-192255-828283,catalogo,2,precio_invalido[-5],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:22:55,20261028-192255-828283,catalogo,2,precio_invalido[300.01],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:22:55,20261028-192255-828283,catalogo,2,precio_invalido[abc],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:22:55,20261028-192255-828283,catalogo,2,precio_invalido[None],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:22:56,20261028-192255-828283,catalogo,2,precio_invalido[],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:22:56,20261028-192255-828283,catalogo,2,precio_maximo_es_valido,FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:22:56,20261028-192255-828283,catalogo,2,nombre_duplicado,PASA,
+2026-10-28T19:22:56,20261028-192255-828283,catalogo,2,nombre_vacio,FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:22:56,20261028-192255-828283,catalogo,2,categoria_invalida,PASA,
+2026-10-28T19:23:12,20261028-192312-334310,catalogo,2,agrega_y_regresa_id,FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:12,20261028-192312-334310,catalogo,2,limpia_nombre_y_convierte_precio,FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:12,20261028-192312-334310,catalogo,2,precio_invalido[0],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:12,20261028-192312-334310,catalogo,2,precio_invalido[-5],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:12,20261028-192312-334310,catalogo,2,precio_invalido[300.01],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:12,20261028-192312-334310,catalogo,2,precio_invalido[abc],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:12,20261028-192312-334310,catalogo,2,precio_invalido[None],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:12,20261028-192312-334310,catalogo,2,precio_invalido[],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:12,20261028-192312-334310,catalogo,2,precio_maximo_es_valido,FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:12,20261028-192312-334310,catalogo,2,nombre_duplicado,PASA,
+2026-10-28T19:23:12,20261028-192312-334310,catalogo,2,nombre_vacio,FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:12,20261028-192312-334310,catalogo,2,categoria_invalida,PASA,
+2026-10-28T19:23:21,20261028-192321-578345,catalogo,2,agrega_y_regresa_id,FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:21,20261028-192321-578345,catalogo,2,limpia_nombre_y_convierte_precio,FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:21,20261028-192321-578345,catalogo,2,precio_invalido[0],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:21,20261028-192321-578345,catalogo,2,precio_invalido[-5],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:21,20261028-192321-578345,catalogo,2,precio_invalido[300.01],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:21,20261028-192321-578345,catalogo,2,precio_invalido[abc],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:21,20261028-192321-578345,catalogo,2,precio_invalido[None],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:21,20261028-192321-578345,catalogo,2,precio_invalido[],FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:21,20261028-192321-578345,catalogo,2,precio_maximo_es_valido,FALLA,NameError: name 'precio_valido' is not defined
+2026-10-28T19:23:21,20261028-192321-578345,catalogo,2,nombre_duplicado,PASA,
+2026-10-28T19:23:21,20261028-192321-578345,catalogo,2,nombre_vacio,PASA,
+2026-10-28T19:23:21,20261028-192321-578345,catalogo,2,categoria_invalida,PASA,
+2026-10-28T19:24:05,20261028-192405-899762,catalogo,2,agrega_y_regresa_id,FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:24:05,20261028-192405-899762,catalogo,2,limpia_nombre_y_convierte_precio,FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:24:05,20261028-192405-899762,catalogo,2,precio_invalido[0],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:24:05,20261028-192405-899762,catalogo,2,precio_invalido[-5],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:24:05,20261028-192405-899762,catalogo,2,precio_invalido[300.01],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:24:05,20261028-192405-899762,catalogo,2,precio_invalido[abc],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:24:05,20261028-192405-899762,catalogo,2,precio_invalido[None],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:24:05,20261028-192405-899762,catalogo,2,precio_invalido[],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:24:05,20261028-192405-899762,catalogo,2,precio_maximo_es_valido,FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:24:05,20261028-192405-899762,catalogo,2,nombre_duplicado,PASA,
+2026-10-28T19:24:05,20261028-192405-899762,catalogo,2,nombre_vacio,PASA,
+2026-10-28T19:24:05,20261028-192405-899762,catalogo,2,categoria_invalida,PASA,
+2026-10-28T19:25:33,20261028-192533-676478,catalogo,2,agrega_y_regresa_id,FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:25:33,20261028-192533-676478,catalogo,2,limpia_nombre_y_convierte_precio,FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:25:33,20261028-192533-676478,catalogo,2,precio_invalido[0],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:25:33,20261028-192533-676478,catalogo,2,precio_invalido[-5],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:25:33,20261028-192533-676478,catalogo,2,precio_invalido[300.01],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:25:33,20261028-192533-676478,catalogo,2,precio_invalido[abc],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:25:33,20261028-192533-676478,catalogo,2,precio_invalido[None],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:25:33,20261028-192533-676478,catalogo,2,precio_invalido[],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:25:33,20261028-192533-676478,catalogo,2,precio_maximo_es_valido,FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:25:33,20261028-192533-676478,catalogo,2,nombre_duplicado,PASA,
+2026-10-28T19:25:33,20261028-192533-676478,catalogo,2,nombre_vacio,PASA,
+2026-10-28T19:25:33,20261028-192533-676478,catalogo,2,categoria_invalida,PASA,
+2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,agrega_y_regresa_id,PASA,
+2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,limpia_nombre_y_convierte_precio,PASA,
+2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,precio_invalido[0],PASA,
+2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,precio_invalido[-5],PASA,
+2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,precio_invalido[300.01],PASA,
+2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,precio_invalido[abc],PASA,
+2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,precio_invalido[None],PASA,
+2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,precio_invalido[],PASA,
+2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,precio_maximo_es_valido,PASA,
+2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,nombre_duplicado,PASA,
+2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,nombre_vacio,PASA,
+2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,categoria_invalida,PASA,

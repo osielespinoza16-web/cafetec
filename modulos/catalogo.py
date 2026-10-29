@@ -53,6 +53,44 @@ def agregar_producto(repo, nombre, categoria, precio):
     "stock": 0 y "stock_minimo": STOCK_MINIMO.
     Regresa el id asignado.
     """
+
+    def _precio_valido(precio):
+      if precio is None or isinstance(precio, bool):
+          raise ValueError("El precio debe ser un número válido")
+
+      try:
+          precio_float = float(precio)
+      except (TypeError, ValueError):
+          raise ValueError("El precio debe ser un número")
+
+      if precio_float <= 0 or precio_float > PRECIO_MAXIMO:
+          raise ValueError(f"El precio debe ser mayor que 0 y máximo {PRECIO_MAXIMO}")
+
+      return round(precio_float, 2)
+
+    if not isinstance(nombre, str):
+        raise ValueError("El nombre debe ser una cadena de texto")
+    
+    nombre = nombre.strip()
+    if not nombre:
+        raise ValueError("El nombre es obligatorio")
+    if repo.filtrar("productos", lambda p: normalizar(p["nombre"]) == normalizar(nombre)):
+        raise ValueError("Ya existe un producto con ese nombre")
+    if categoria not in CATEGORIAS:
+        raise ValueError("Categoría inválida")
+    precio = _precio_valido(precio)
+    return repo.agregar(
+        "productos",
+        {
+            "nombre": nombre,
+            "categoria": categoria,
+            "precio": precio,
+            "disponible": True,
+            "stock": 0,
+            "stock_minimo": STOCK_MINIMO,
+        },
+    )
+
     # TODO: implementar (Actividad 2 · Día 1)
     raise NotImplementedError("Actividad 2 pendiente")
 
