@@ -274,12 +274,12 @@ Casi toda la evidencia se genera sola con el trabajo. Un equipo terminó cuando 
 - [ ] Hoja **Retrospectiva**: su renglón lleno (qué funcionó, mayor desperdicio, mejora que proponen
   y si la actividad 3 salió mejor que la 1).
 
-**3. Capturas de pantalla** (solo si el profe pide entregar en plataforma)
+**3. Capturas de pantalla**
 
-- Su sección funcionando en la app (por ejemplo, la pestaña **Caja**).
-- La terminal con `python probar.py <modulo>` diciendo **ACTIVIDAD COMPLETA** en las 3 actividades.
-- La salida de `python probar.py --metricas <modulo>`.
-- Su Pull Request en GitHub con el estado **Merged**.
+- [ ] Su sección funcionando en la app (por ejemplo, la pestaña **Caja**).
+- [ ] La terminal con `python probar.py <modulo>` diciendo **ACTIVIDAD COMPLETA** en las 3 actividades.
+- [ ] La salida de `python probar.py --metricas <modulo>`.
+- [ ] Su Pull Request en GitHub con el estado **Merged**.
 
 ## 11. Comandos
 
