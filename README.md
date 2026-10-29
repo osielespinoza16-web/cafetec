@@ -198,38 +198,6 @@ Ese integrante debe estar invitado como colaborador del repositorio.
 
 Todo en minúsculas, con guiones, sin acentos ni espacios.
 
-### Crear la rama antes de la clase (solo el developer)
-
-1. Acepta la invitación al repositorio (llega a tu correo o en <https://github.com/notifications>).
-2. En la terminal, un comando a la vez (ejemplo con el Equipo 3; cambia el nombre por el de tu rama):
-   ```bash
-   git clone https://github.com/osielespinoza16-web/cafetec.git
-   cd cafetec
-   git checkout -b equipo-3-pedidos
-   git push -u origin equipo-3-pedidos
-   ```
-3. Revisa en GitHub, en el botón de ramas (arriba a la izquierda, donde dice `main`), que tu rama
-   aparezca con el nombre exacto.
-4. Verifica en tu terminal que estás en tu rama: `git branch` debe marcar tu rama con `*`.
-
-Si ya habías clonado antes, en lugar de `git clone` entra a la carpeta y corre `git pull` antes de
-`git checkout -b`.
-
-### El día de la sesión
-
-```bash
-git checkout equipo-3-pedidos
-git pull origin main
-# ... actividades 1, 2 y 3, con un commit cada una ...
-git push
-```
-
-`git pull origin main` trae lo último de `main` antes de empezar.
-Luego abren el Pull Request en GitHub de su rama hacia `main` (la plantilla ya trae lo que deben
-llenar) y escriben `Closes #N` por cada tarjeta. El equipo organizador aprueba y el developer hace
-**Squash and merge**. No hay conflictos: cada equipo toca archivos distintos, y el registro de
-métricas va en archivos separados por módulo.
-
 ## 8. Métricas que se recaban
 
 | Métrica | Qué dice | De dónde sale |
