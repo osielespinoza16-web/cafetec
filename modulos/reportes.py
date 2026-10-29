@@ -27,8 +27,10 @@ def ventas_del_dia(repo, fecha):
     "total" es la suma de los totales de esos pedidos (total_de_items),
     redondeada a 2 decimales. Si no hubo ventas, pedidos 0 y total 0.0.
     """
-    # TODO: implementar (Actividad 1)
-    raise NotImplementedError("Actividad 1 pendiente")
+    fecha = a_fecha(fecha).isoformat()
+    pedidos = repo.filtrar("pedidos", lambda p: p["pagado"] and p["fecha"] == fecha)
+    total = round(sum(total_de_items(p["items"]) for p in pedidos), 2)
+    return {"fecha": fecha, "pedidos": len(pedidos), "total": total}
 
 
 def productos_mas_vendidos(repo, limite=3):
