@@ -3,3 +3,5 @@ fecha_hora,modulo,actividad,evento,detalle
 2026-10-28T19:08:04,catalogo,1,FIN,
 2026-10-28T19:14:56,catalogo,2,INICIO,agregar_producto
 2026-10-28T19:26:54,catalogo,2,FIN,
+2026-10-28T19:31:28,catalogo,3,INICIO,cambiar_precio
+2026-10-28T19:35:06,catalogo,3,FIN,

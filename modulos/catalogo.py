@@ -15,7 +15,24 @@ Para errores de validación lanza ValueError("mensaje claro").
 
 from nucleo.config import CATEGORIAS, PRECIO_MAXIMO, STOCK_MINIMO
 from nucleo.utilidades import normalizar
+from pruebas.conftest import repo
 
+def _precio_valido(precio):
+    if precio is None or isinstance(precio, bool):
+        raise ValueError("El precio debe ser un número válido")
+
+    try:
+        precio_float = float(precio)
+    except (TypeError, ValueError):
+        raise ValueError("El precio debe ser un número")
+
+    if precio_float <= 0 or precio_float > PRECIO_MAXIMO:
+        raise ValueError(f"El precio debe ser mayor que 0 y máximo {PRECIO_MAXIMO}")
+
+    return round(precio_float, 2)
+
+    if not isinstance(nombre, str):
+        raise ValueError("El nombre debe ser una cadena de texto")
 
 def listar_menu(repo, categoria=None):
     """Actividad 1 · Día 1 — Menú del día.
@@ -53,23 +70,6 @@ def agregar_producto(repo, nombre, categoria, precio):
     "stock": 0 y "stock_minimo": STOCK_MINIMO.
     Regresa el id asignado.
     """
-
-    def _precio_valido(precio):
-      if precio is None or isinstance(precio, bool):
-          raise ValueError("El precio debe ser un número válido")
-
-      try:
-          precio_float = float(precio)
-      except (TypeError, ValueError):
-          raise ValueError("El precio debe ser un número")
-
-      if precio_float <= 0 or precio_float > PRECIO_MAXIMO:
-          raise ValueError(f"El precio debe ser mayor que 0 y máximo {PRECIO_MAXIMO}")
-
-      return round(precio_float, 2)
-
-    if not isinstance(nombre, str):
-        raise ValueError("El nombre debe ser una cadena de texto")
     
     nombre = nombre.strip()
     if not nombre:
@@ -103,5 +103,9 @@ def cambiar_precio(repo, producto_id, nuevo_precio):
         (texto o número, > 0, <= PRECIO_MAXIMO, redondeado a 2 decimales).
     Regresa el producto actualizado (el dict que regresa repo.actualizar).
     """
+    if repo.obtener("productos", producto_id) is None:
+        raise ValueError("El producto no existe")
+    return repo.actualizar("productos", producto_id, {"precio": _precio_valido(nuevo_precio)})
+
     # TODO: implementar (Actividad 3 · Día 1)
     raise NotImplementedError("Actividad 3 pendiente")

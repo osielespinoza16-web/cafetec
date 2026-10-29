@@ -89,3 +89,24 @@ fecha_hora,ejecucion,modulo,actividad,prueba,resultado,mensaje
 2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,nombre_duplicado,PASA,
 2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,nombre_vacio,PASA,
 2026-10-28T19:26:54,20261028-192654-654175,catalogo,2,categoria_invalida,PASA,
+2026-10-28T19:32:18,20261028-193218-056165,catalogo,3,cambia_precio,FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:32:18,20261028-193218-056165,catalogo,3,precio_como_texto,FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:32:18,20261028-193218-056165,catalogo,3,producto_inexistente,PASA,
+2026-10-28T19:32:18,20261028-193218-056165,catalogo,3,precio_invalido[0],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:32:18,20261028-193218-056165,catalogo,3,precio_invalido[-1],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:32:18,20261028-193218-056165,catalogo,3,precio_invalido[301],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:32:18,20261028-193218-056165,catalogo,3,precio_invalido[veinte],FALLA,NameError: name '_precio_valido' is not defined
+2026-10-28T19:35:06,20261028-193506-034029,catalogo,3,cambia_precio,PASA,
+2026-10-28T19:35:06,20261028-193506-034029,catalogo,3,precio_como_texto,PASA,
+2026-10-28T19:35:06,20261028-193506-034029,catalogo,3,producto_inexistente,PASA,
+2026-10-28T19:35:06,20261028-193506-034029,catalogo,3,precio_invalido[0],PASA,
+2026-10-28T19:35:06,20261028-193506-034029,catalogo,3,precio_invalido[-1],PASA,
+2026-10-28T19:35:06,20261028-193506-034029,catalogo,3,precio_invalido[301],PASA,
+2026-10-28T19:35:06,20261028-193506-034029,catalogo,3,precio_invalido[veinte],PASA,
+2026-10-28T19:35:10,20261028-193510-473248,catalogo,3,cambia_precio,PASA,
+2026-10-28T19:35:10,20261028-193510-473248,catalogo,3,precio_como_texto,PASA,
+2026-10-28T19:35:10,20261028-193510-473248,catalogo,3,producto_inexistente,PASA,
+2026-10-28T19:35:10,20261028-193510-473248,catalogo,3,precio_invalido[0],PASA,
+2026-10-28T19:35:10,20261028-193510-473248,catalogo,3,precio_invalido[-1],PASA,
+2026-10-28T19:35:10,20261028-193510-473248,catalogo,3,precio_invalido[301],PASA,
+2026-10-28T19:35:10,20261028-193510-473248,catalogo,3,precio_invalido[veinte],PASA,
