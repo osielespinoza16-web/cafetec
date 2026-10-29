@@ -1,6 +1,6 @@
 # Checklist de revisión del Pull Request
 
-Lo usa el **equipo revisor** (ver la tabla de parejas en el README). Revisen el PR con esta
+Lo usa el **equipo organizador**, que revisa los 6 Pull Requests (ver la sección 4 del README). Revisen el PR con esta
 lista antes de aprobar. Cada punto que no se cumpla se pide como cambio en un comentario del
 PR y **cuenta como un defecto encontrado en revisión** (anótenlo en la hoja Revisiones de la bitácora).
 

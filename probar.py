@@ -19,7 +19,7 @@ Métricas:
 Otros:
   python probar.py pedidos                Corre todas las pruebas del módulo
 
-Módulos: usuarios, catalogo, pedidos (día 1) · caja, inventario, reportes (día 2)
+Módulos: usuarios, catalogo, pedidos, caja, inventario, reportes
 """
 
 import csv
@@ -40,7 +40,6 @@ FUNCIONES = {
     "reportes": ["ventas_del_dia", "productos_mas_vendidos", "resumen_por_estado"],
 }
 EQUIPO = {"usuarios": 1, "catalogo": 2, "pedidos": 3, "caja": 4, "inventario": 5, "reportes": 6}
-DIA = {"usuarios": 1, "catalogo": 1, "pedidos": 1, "caja": 2, "inventario": 2, "reportes": 2}
 MODULOS = tuple(FUNCIONES)
 ACTIVIDADES = ("1", "2", "3")
 LIMITE_WIP = 1
@@ -315,6 +314,12 @@ def detectar_defectos(modulo):
                  inicio["prueba"].split("[")[0])
         grupos.setdefault(llave, {"inicio": inicio, "fin": fin, "casos": 0})["casos"] += 1
 
+    # Si varios defectos se detectan y se corrigen en las mismas corridas, el tiempo
+    # entre esas corridas se reparte entre ellos para no contarlo varias veces.
+    comparten = defaultdict(int)
+    for (act, ej_ini, ej_fin, base) in grupos:
+        comparten[(ej_ini, ej_fin)] += 1
+
     defectos = []
     for (act, ej_ini, ej_fin, base), g in sorted(grupos.items(), key=lambda x: x[1]["inicio"]["fecha_hora"]):
         mensaje = g["inicio"]["mensaje"]
@@ -322,7 +327,8 @@ def detectar_defectos(modulo):
             "actividad": act,
             "detectado": g["inicio"]["fecha_hora"],
             "corregido": g["fin"]["fecha_hora"] if g["fin"] else "",
-            "minutos": max(minutos(g["inicio"]["fecha_hora"], g["fin"]["fecha_hora"]), 0.1) if g["fin"] else None,
+            "minutos": max(round(minutos(g["inicio"]["fecha_hora"], g["fin"]["fecha_hora"])
+                                 / comparten[(ej_ini, ej_fin)], 1), 0.1) if g["fin"] else None,
             "descripcion": f"{base}" + (f" ({g['casos']} casos)" if g["casos"] > 1 else "") + (f": {mensaje}" if mensaje else ""),
             "ejecucion_inicio": ej_ini,
             "ejecucion_fin": ej_fin,
@@ -370,7 +376,7 @@ def hora(valor):
 
 def mostrar_metricas(modulo):
     datos = metricas_modulo(modulo)
-    print(f"\n=== Métricas Lean · Equipo {EQUIPO[modulo]} · {modulo} (día {DIA[modulo]}) ===\n")
+    print(f"\n=== Métricas Lean · Equipo {EQUIPO[modulo]} · {modulo} ===\n")
     print(f"{'Act':<4}{'Función':<24}{'Inicio':>7}{'Fin':>7}{'Lead':>7}{'Espera':>8}{'Efic.':>7}"
           f"{'Corridas':>10}{'Defectos':>10}{'Min corr.':>11}{'1a vez':>8}")
     for m in datos:
@@ -408,24 +414,28 @@ def mostrar_metricas(modulo):
     salida = CARPETA / f"desperdicios_{modulo}.txt"
     with salida.open("w", encoding="utf-8", newline="") as archivo:
         for d in desperdicios:
-            # Columnas de Excel: Día | Equipo | Tipo | Qué pasó | Min perdidos | Contramedida | Lo detectó
-            texto = (f"Act {d['actividad']}: " if d["actividad"] else "") + d["descripcion"].replace("\t", " ")
-            archivo.write("\t".join([str(DIA[modulo]), f"Equipo {EQUIPO[modulo]}", d["tipo"], texto,
+            # Columnas de Excel: Act. | Equipo | Tipo | Qué pasó | Min perdidos | Contramedida | Lo detectó
+            texto = d["descripcion"].replace("\t", " ")
+            archivo.write("\t".join([d["actividad"], f"Equipo {EQUIPO[modulo]}", d["tipo"], texto,
                                       str(d["minutos"]), "", d["origen"]]) + "\r\n")
     print(f"\nArchivo para Excel: registro/{salida.name}")
-    print("Ábrelo, copia todo y pégalo en la hoja Desperdicios, en la primera fila libre de la columna Día.")
+    print("Ábrelo, copia todo y pégalo en la hoja Desperdicios, en la primera fila libre de la columna Act.")
     print("Después escriban la contramedida de los que costaron más minutos.")
 
 
 def tablero():
     lineas = ["# Tablero de métricas Lean · CafeTec", "",
               f"Generado: {ahora().replace('T', ' ')}", "",
-              "| Día | Equipo | Módulo | Terminadas | Lead total (min) | Lead prom. | Espera (min) "
+              "## Por equipo", "",
+              "| Equipo | Módulo | Terminadas | Lead total (min) | Lead prom. | Espera (min) "
               "| Eficiencia | Defectos | Bien a la 1a | Desperdicio (min) |",
-              "|---|---|---|---|---|---|---|---|---|---|---|"]
-    por_dia = defaultdict(list)
+              "|---|---|---|---|---|---|---|---|---|---|"]
+    por_actividad = defaultdict(list)
+    total = defaultdict(float)
     for modulo in MODULOS:
         datos = metricas_modulo(modulo)
+        for m in datos:
+            por_actividad[m["actividad"]].append(m)
         hechas = [m for m in datos if m["lead"] is not None]
         lead_total = round(float(sum(m["lead"] for m in hechas)), 1)
         espera = round(float(sum(m["bloqueado"] for m in hechas)), 1)
@@ -434,29 +444,39 @@ def tablero():
         fpy = round(100 * sum(m["primera"] == "Sí" for m in con_corrida) / len(con_corrida)) if con_corrida else None
         efic = round((lead_total - espera) / lead_total * 100) if lead_total else None
         desperdicio = round(float(sum(d["minutos"] for d in desperdicios_modulo(modulo))), 1)
-        fila = {"hechas": len(hechas), "lead": lead_total, "espera": espera, "defectos": defectos, "fpy": fpy,
-                "desperdicio": desperdicio}
-        por_dia[DIA[modulo]].append(fila)
+        for llave, valor in (("hechas", len(hechas)), ("lead", lead_total), ("espera", espera),
+                             ("defectos", defectos), ("desperdicio", desperdicio)):
+            total[llave] += valor
         lineas.append(
-            f"| {DIA[modulo]} | {EQUIPO[modulo]} | {modulo} | {len(hechas)}/3 | {lead_total} | "
+            f"| {EQUIPO[modulo]} | {modulo} | {len(hechas)}/3 | {lead_total} | "
             f"{round(lead_total / len(hechas), 1) if hechas else '-'} | {espera} | "
             f"{f'{efic}%' if efic is not None else '-'} | {defectos} | {f'{fpy}%' if fpy is not None else '-'} | "
             f"{desperdicio} |")
+    hechas = int(total["hechas"])
+    lead_prom = round(total["lead"] / hechas, 1) if hechas else "-"
+    efic_grupo = f"{round((total['lead'] - total['espera']) / total['lead'] * 100)}%" if total["lead"] else "-"
+    lineas.append(f"| **Grupo** | | **{hechas}/18** | **{round(total['lead'], 1)}** | **{lead_prom}** | "
+                  f"**{round(total['espera'], 1)}** | **{efic_grupo}** | **{int(total['defectos'])}** | | "
+                  f"**{round(total['desperdicio'], 1)}** |")
 
-    lineas += ["", "## Día 1 contra día 2", "",
-               "| Día | Actividades terminadas | Lead promedio por actividad (min) | Espera total (min) "
-               "| Defectos por actividad | Desperdicio (min) |", "|---|---|---|---|---|---|"]
-    for dia in (1, 2):
-        filas = por_dia[dia]
-        hechas = sum(f["hechas"] for f in filas)
-        lead = sum(f["lead"] for f in filas)
-        lineas.append(f"| {dia} | {hechas}/9 | {round(lead / hechas, 1) if hechas else '-'} | "
-                      f"{round(sum(f['espera'] for f in filas), 1)} | "
-                      f"{round(sum(f['defectos'] for f in filas) / hechas, 2) if hechas else '-'} | "
-                      f"{round(sum(f['desperdicio'] for f in filas), 1)} |")
+    lineas += ["", "## Actividad 1 contra actividad 3 (curva de aprendizaje)", "",
+               "| Actividad | Terminadas | Lead promedio (min) | Espera (min) | Defectos por actividad | Bien a la 1a |",
+               "|---|---|---|---|---|---|"]
+    for act in ACTIVIDADES:
+        filas = por_actividad[act]
+        hechas_act = [m for m in filas if m["lead"] is not None]
+        con_corrida = [m for m in filas if m["primera"]]
+        fpy = round(100 * sum(m["primera"] == "Sí" for m in con_corrida) / len(con_corrida)) if con_corrida else None
+        lineas.append(
+            f"| {act} | {len(hechas_act)}/6 | "
+            f"{round(sum(m['lead'] for m in hechas_act) / len(hechas_act), 1) if hechas_act else '-'} | "
+            f"{round(float(sum(m['bloqueado'] for m in hechas_act)), 1)} | "
+            f"{round(sum(m['defectos'] for m in filas) / len(hechas_act), 2) if hechas_act else '-'} | "
+            f"{f'{fpy}%' if fpy is not None else '-'} |")
     lineas += ["", "Lead time: desde que se jala la tarjeta (--iniciar) hasta que pasan todas sus pruebas.",
                "Eficiencia de flujo: porcentaje del lead time sin espera (bloqueos).",
-               "Bien a la 1a: actividades cuya primera corrida de pruebas pasó completa."]
+               "Bien a la 1a: actividades cuya primera corrida de pruebas pasó completa.",
+               "Si la actividad 3 sale más rápida y con menos defectos que la 1, los equipos aprendieron durante la sesión."]
     salida = CARPETA / "TABLERO.md"
     CARPETA.mkdir(parents=True, exist_ok=True)
     salida.write_text("\n".join(lineas) + "\n", encoding="utf-8")

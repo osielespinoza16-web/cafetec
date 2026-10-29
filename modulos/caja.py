@@ -1,4 +1,4 @@
-"""MÓDULO CAJA — Equipo 4 · Día 2.
+"""MÓDULO CAJA — Equipo 4.
 
 Cada función tiene su especificación en el docstring. Implementa solo
 el cuerpo; no cambies el nombre ni los parámetros, porque la app y las
@@ -18,18 +18,18 @@ from nucleo.utilidades import a_fecha, hoy_o, total_de_items
 
 
 def calcular_total(repo, pedido_id):
-    """Actividad 1 · Día 2 — Total de un pedido.
+    """Actividad 1 — Total de un pedido.
 
       - Si el pedido no existe -> ValueError.
     Regresa la suma de precio_unitario * cantidad de todos sus items,
     redondeada a 2 decimales (float). Tip: total_de_items() ya lo hace.
     """
-    # TODO: implementar (Actividad 1 · Día 2)
+    # TODO: implementar (Actividad 1)
     raise NotImplementedError("Actividad 1 pendiente")
 
 
 def cobrar_pedido(repo, pedido_id, metodo, recibido=None, hoy=None):
-    """Actividad 2 · Día 2 — Cobrar un pedido.
+    """Actividad 2 — Cobrar un pedido.
 
     Reglas (si alguna falla, lanza ValueError y NO guarda nada):
       - El pedido debe existir.
@@ -45,12 +45,12 @@ def cobrar_pedido(repo, pedido_id, metodo, recibido=None, hoy=None):
     texto "AAAA-MM-DD"; después marca el pedido con "pagado": True.
     Regresa el ticket completo: el dict del pago INCLUYENDO su "id".
     """
-    # TODO: implementar (Actividad 2 · Día 2)
+    # TODO: implementar (Actividad 2)
     raise NotImplementedError("Actividad 2 pendiente")
 
 
 def corte_de_caja(repo, fecha):
-    """Actividad 3 · Día 2 — Corte de caja del día.
+    """Actividad 3 — Corte de caja del día.
 
     `fecha` puede llegar como texto "AAAA-MM-DD" o como date.
     Toma los pagos cuya "fecha" sea esa fecha y regresa un dict:
@@ -60,5 +60,5 @@ def corte_de_caja(repo, fecha):
     "total" es la suma de los dos. Montos redondeados a 2 decimales.
     Si no hubo pagos ese día, todo va en 0 (y "fecha" igual se llena).
     """
-    # TODO: implementar (Actividad 3 · Día 2)
+    # TODO: implementar (Actividad 3)
     raise NotImplementedError("Actividad 3 pendiente")

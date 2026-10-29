@@ -1,24 +1,25 @@
 # CafeTec · Actividad Lean Software Development
 
 CafeTec es el sistema de pedidos de una cafetería escolar, hecho en Python (Flask).
-La app, el diseño y las pruebas **ya están hechos**. Cada equipo programa las **3 funciones
-de su módulo** en menos de una hora y **mide su flujo de trabajo** con métricas Lean.
+La app, el diseño y las pruebas **ya están hechos**. Los **6 equipos programan en la misma
+sesión**: cada uno programa las **3 funciones de su módulo** en menos de una hora y **mide su
+flujo de trabajo** con métricas Lean. El **equipo organizador** revisa y aprueba los 6 Pull Requests.
 
-| Equipo | Módulo | Archivo | Día | Revisa su PR |
-|---|---|---|---|---|
-| 1 | Usuarios | `modulos/usuarios.py` | 1 | Equipo 6 |
-| 2 | Catálogo (menú) | `modulos/catalogo.py` | 1 | Equipo 5 |
-| 3 | Pedidos | `modulos/pedidos.py` | 1 | Equipo 4 |
-| 4 | Caja | `modulos/caja.py` | 2 | Equipo 3 |
-| 5 | Inventario | `modulos/inventario.py` | 2 | Equipo 2 |
-| 6 | Reportes | `modulos/reportes.py` | 2 | Equipo 1 |
+| Equipo | Módulo | Archivo | Rama |
+|---|---|---|---|
+| 1 | Usuarios | `modulos/usuarios.py` | `equipo-1-usuarios` |
+| 2 | Catálogo (menú) | `modulos/catalogo.py` | `equipo-2-catalogo` |
+| 3 | Pedidos | `modulos/pedidos.py` | `equipo-3-pedidos` |
+| 4 | Caja | `modulos/caja.py` | `equipo-4-caja` |
+| 5 | Inventario | `modulos/inventario.py` | `equipo-5-inventario` |
+| 6 | Reportes | `modulos/reportes.py` | `equipo-6-reportes` |
 
-**Enlaces:** [tablero de flujo](https://github.com/users/osielespinoza16-web/projects/2) · [bitácora en Drive](https://docs.google.com/spreadsheets/d/1FdRbUE111QeKUcwXqgW4CiPu0fcylvST/edit)
+**Enlaces:** [tablero de flujo](https://github.com/users/osielespinoza16-web/projects/2) · [bitácora en Drive](https://docs.google.com/spreadsheets/d/1pS3fS1E22NXk8NkPpbabqToMo7gq2o8L/edit)
 
-Las parejas no son al azar: Caja cobra los pedidos, Inventario descuenta los productos del
-catálogo y Reportes lee usuarios y ventas. Quien **usa** un módulo es quien lo revisa.
+Los módulos son independientes: todos trabajan sobre los mismos datos de ejemplo, así que
+ningún equipo espera a otro para programar.
 
-## 1. Instalación (antes del día 1)
+## 1. Instalación (antes de la sesión)
 
 Necesitas Python 3.10 o superior y Git.
 
@@ -86,8 +87,8 @@ Tómalo en cuenta:
 |---|---|
 | Eliminar desperdicio | Módulos independientes para que nadie espere a nadie; cada equipo registra sus desperdicios con `--desperdicio` y esperas, retrabajo y cambios de tarea se registran solos |
 | Construir con calidad | Pruebas automáticas en cada corrida y en cada PR (GitHub Actions) |
-| Amplificar el aprendizaje | La retrospectiva del día 1 alimenta la forma de trabajar del día 2 |
-| Decidir lo más tarde posible | Cada función se diseña al jalarla, y la mejora del día 2 se decide hasta ver los datos del día 1 |
+| Amplificar el aprendizaje | Se compara la actividad 1 contra la 3: ¿el equipo fue más rápido y con menos defectos al final? La retrospectiva deja una mejora para la próxima vez |
+| Decidir lo más tarde posible | Cada función se diseña al jalarla, con lo aprendido en la anterior; la mejora se decide hasta ver los datos |
 | Entregar rápido | Sistema pull: cada equipo jala su siguiente tarjeta del tablero de flujo; lotes pequeños (una función por tarjeta) |
 | Empoderar al equipo | Nadie asigna trabajo: cada equipo decide cuándo jalar y cómo resolver su tarjeta |
 | Ver el todo | El tablero (`registro/TABLERO.md`) compara a los 6 equipos y a los 2 días |
@@ -106,62 +107,39 @@ Poppendieck, *Lean Software Development: An Agile Toolkit*:
 También sirve al principio **"Ver el todo"**: cualquiera ve en qué va cada equipo y dónde se
 atora el flujo. Columnas: *Todo → In Progress → Revision → Done*.
 
-## 4. Agenda de cada sesión (≤ 55 min)
+## 4. Agenda de la sesión (≤ 55 min)
 
-La clase puede ser remota: nadie necesita ver la pantalla de otro equipo. Cada equipo trabaja
-en su propia llamada o sala, y los desperdicios los registra el mismo equipo con `probar.py`.
+La clase es remota: nadie necesita ver la pantalla de otro equipo. Cada equipo trabaja en su
+propia llamada o sala, y los desperdicios los registra el mismo equipo con `probar.py`.
 
-| Minuto | Equipos que programan | Equipos revisores (no programan ese día) |
+| Minuto | Los 6 equipos | Equipo organizador (revisor) |
 |---|---|---|
-| 0–5 | `git pull`, crear rama, iniciar la actividad 1 | Confirman que su rama existe y que `python app.py` funciona |
-| 5–35 | Actividades 1, 2 y 3 (≈10 min cada una), un commit por actividad; el encargado de flujo anota desperdicios con `--desperdicio` | Leen el módulo que van a revisar y preparan el suyo (detalle abajo) |
-| 35–45 | Abren el PR con sus métricas | **Revisan** el PR en GitHub con `REVISION.md` y lo aprueban |
-| 45–55 | Merge, `--metricas` y pegar en la bitácora (Excel) | Retrospectiva juntos y eligen la mejora que aplicarán |
+| 0–5 | `git checkout <su rama>`, `git pull origin main`, iniciar la actividad 1 | Confirma que los 6 developers tienen su rama |
+| 5–35 | Actividades 1, 2 y 3 (≈10 min cada una), un commit por actividad; el encargado de flujo anota desperdicios con `--desperdicio` | Resuelve dudas y vigila el tablero de flujo |
+| 35–45 | Abren su PR con sus métricas | **Revisa** los PR en GitHub con `REVISION.md` y los aprueba |
+| 45–55 | Merge, `--metricas` y pegar en la bitácora | Retrospectiva con todo el grupo |
 
-Al terminar el día 1, el grupo elige **1 o 2 mejoras** de la retrospectiva y los equipos del
-día 2 las aplican (eso es *kaizen*). Al final se comparan los dos días con datos.
+### Qué hace el equipo organizador (revisor)
 
-### Qué hacen los equipos revisores
-
-El día que un equipo **no programa** es **revisor**: el día 1 lo son los equipos 4, 5 y 6, y el
-día 2 los equipos 1, 2 y 3. Con la clase remota no observan a nadie; su trabajo es revisar el
-código de su pareja y prepararse para su propio día.
-
-| Revisor | Revisa a | Por qué esa pareja |
-|---|---|---|
-| Equipo 4 · Caja | Equipo 3 · Pedidos | Caja cobra los pedidos |
-| Equipo 5 · Inventario | Equipo 2 · Catálogo | Inventario descuenta productos del catálogo |
-| Equipo 6 · Reportes | Equipo 1 · Usuarios | Reportes lee usuarios y ventas |
-
-El día 2 se invierte: el Equipo 3 revisa al 4, el 2 al 5 y el 1 al 6.
-
-**Paso a paso del revisor**
-
-1. **Minutos 0–5 · Estar listos.** Su developer confirma que su rama ya existe (por ejemplo,
-   `equipo-4-caja`) y que `python app.py` funciona en su computadora.
-2. **Minutos 5–35 · Prepararse.**
-   - Leen los docstrings del módulo que van a revisar (el Equipo 4 lee `modulos/pedidos.py`)
-     para saber qué debe cumplir el código.
-   - Leen las 3 funciones de su propio módulo para el día que les toca programar.
-   - Escriben en la hoja **Retrospectiva** de la bitácora, en su renglón, cómo planean
-     organizarse cuando les toque programar.
-   - Quedan disponibles por si el equipo que programa tiene dudas.
-3. **Minutos 35–45 · Revisar el Pull Request.** Estén atentos: en cuanto su pareja abra el PR,
-   cada minuto que tarden cuenta como **espera** (desperdicio).
-   - En GitHub, pestaña **Pull requests**, abren el PR de su pareja y van a **Files changed**.
-   - Revisan el código con [REVISION.md](REVISION.md) y confirman que la revisión automática
+1. **Antes y al inicio:** confirma que cada developer tiene su rama con el nombre exacto.
+2. **Minutos 5–35:** resuelve dudas por el chat y vigila el tablero de flujo: una tarjeta que
+   lleva mucho en *In Progress* es un equipo atorado.
+3. **Minutos 35–45 · Revisar los 6 Pull Requests.** Se reparten los PR entre los integrantes
+   (por ejemplo, 2 cada uno) para que no se forme una cola: cada minuto que un PR espera
+   revisión cuenta como **espera** (desperdicio).
+   - En GitHub, pestaña **Pull requests**, abren el PR y van a **Files changed**.
+   - Revisan el código con [REVISION.md](REVISION.md) y que la revisión automática
      (**Pruebas**) esté en verde.
    - Si algo falla: comentan en la línea y eligen **Review changes → Request changes**. Cada
      cambio pedido cuenta como **defecto encontrado en revisión**.
    - Si está bien: **Review changes → Approve**.
-   - Anotan en la bitácora, hoja **Revisiones**: hora en que se abrió el PR, hora en que lo
-     aprobaron y cuántos cambios pidieron.
-4. **Minutos 45–55 · Retrospectiva.** Participan y ayudan a elegir la mejora que ellos mismos
-   aplicarán cuando les toque programar.
+   - Anotan en la bitácora, hoja **Revisiones**: quién revisó, hora en que se abrió el PR, hora
+     en que lo aprobaron y cuántos cambios pidieron.
+4. **Minutos 45–55:** guían la retrospectiva y al final corren `python probar.py --tablero`.
 
 **Por qué importa en LSD:** sin su aprobación nada entra a `main` (*construir con calidad*);
-si tardan en revisar, generan espera (*eliminar desperdicio*); y como usan ese módulo cuando
-les toca programar, revisarlo antes les ayuda a trabajar mejor (*amplificar el aprendizaje*).
+si tardan en revisar, generan espera (*eliminar desperdicio*); y al revisar los 6 módulos ven
+cómo encaja todo el sistema (*ver el todo*).
 
 ## 5. Roles dentro del equipo (rotan en cada actividad)
 
@@ -220,38 +198,6 @@ Ese integrante debe estar invitado como colaborador del repositorio.
 
 Todo en minúsculas, con guiones, sin acentos ni espacios.
 
-### Crear la rama antes de la clase (solo el developer)
-
-1. Acepta la invitación al repositorio (llega a tu correo o en <https://github.com/notifications>).
-2. En la terminal, un comando a la vez (ejemplo con el Equipo 3; cambia el nombre por el de tu rama):
-   ```bash
-   git clone https://github.com/osielespinoza16-web/cafetec.git
-   cd cafetec
-   git checkout -b equipo-3-pedidos
-   git push -u origin equipo-3-pedidos
-   ```
-3. Revisa en GitHub, en el botón de ramas (arriba a la izquierda, donde dice `main`), que tu rama
-   aparezca con el nombre exacto.
-4. Verifica en tu terminal que estás en tu rama: `git branch` debe marcar tu rama con `*`.
-
-Si ya habías clonado antes, en lugar de `git clone` entra a la carpeta y corre `git pull` antes de
-`git checkout -b`.
-
-### El día de la sesión
-
-```bash
-git checkout equipo-3-pedidos
-git pull origin main
-# ... actividades 1, 2 y 3, con un commit cada una ...
-git push
-```
-
-`git pull origin main` trae lo que otros equipos ya unieron (importante para el día 2).
-Luego abren el Pull Request en GitHub de su rama hacia `main` (la plantilla ya trae lo que deben
-llenar) y escriben `Closes #N` por cada tarjeta. El equipo revisor aprueba y el developer hace
-**Squash and merge**. No hay conflictos: cada equipo toca archivos distintos, y el registro de
-métricas va en archivos separados por módulo.
-
 ## 8. Métricas que se recaban
 
 | Métrica | Qué dice | De dónde sale |
@@ -261,48 +207,48 @@ métricas va en archivos separados por módulo.
 | Eficiencia de flujo | % del lead time que no fue espera | `probar.py --metricas` |
 | Defectos en pruebas | Pruebas que fallaron y luego se corrigieron | Automático |
 | Calidad a la primera | ¿La primera corrida de pruebas ya pasó todo? | Automático |
-| Defectos en revisión | Cambios que pidió el equipo revisor | Comentarios del PR → hoja Revisiones |
+| Defectos en revisión | Cambios que pidió el equipo organizador | Comentarios del PR → hoja Revisiones |
 | Espera de revisión | Tiempo entre que se abre el PR y se aprueba | Hoja Revisiones y workflow "Métricas de flujo" |
-| Throughput | Actividades terminadas por equipo y por día | `registro/TABLERO.md` |
+| Throughput | Actividades terminadas por equipo y en total | `registro/TABLERO.md` |
 | Desperdicios | Los 7 desperdicios Lean, con sus minutos | `--desperdicio` + detección automática → hoja Desperdicios |
 
 Los datos crudos quedan en `registro/` (un archivo por módulo) y suben con el PR, así que
 al final todo el historial está en el repositorio.
 
-## 9. Al final de cada día (10 min)
+## 9. Al final de la sesión (10 min)
 
 ```bash
 python probar.py --metricas pedidos
 ```
 
 Esto muestra sus métricas y sus desperdicios, y genera dos archivos para la
-**[bitácora del grupo en Google Drive](https://docs.google.com/spreadsheets/d/1FdRbUE111QeKUcwXqgW4CiPu0fcylvST/edit)**. Se llena ahí, no en el archivo
+**[bitácora del grupo en Google Drive](https://docs.google.com/spreadsheets/d/1pS3fS1E22NXk8NkPpbabqToMo7gq2o8L/edit)**. Se llena ahí, no en el archivo
 `Plantilla_Lean_CafeTec.xlsx` del repositorio (ese es solo la plantilla de respaldo).
 En cada archivo: ábrelo, selecciona todo y copia.
 
 - `registro/metricas_pedidos.txt` → hoja **Flujo**, en la celda marcada con ◀ en la fila de tu equipo.
 - `registro/desperdicios_pedidos.txt` → hoja **Desperdicios**, en la primera fila libre de la columna
-  **Día**. Después escriban la contramedida de los que costaron más minutos.
+  **Act.**. Después escriban la contramedida de los que costaron más minutos.
 
 La bitácora tiene una hoja por tema, compartida por todo el grupo:
 
 | Hoja | Quién la llena | Cuándo |
 |---|---|---|
-| **Portada** | Cada equipo escribe sus integrantes | Antes del día 1 |
+| **Portada** | Cada equipo escribe su developer e integrantes | Antes de la sesión |
 | **Flujo** | Cada equipo pega su salida de `--metricas` | Al terminar sus 3 actividades |
 | **Desperdicios** | Cada equipo pega `registro/desperdicios_<modulo>.txt` y escribe la contramedida | Al terminar sus 3 actividades |
-| **Revisiones** | El equipo revisor (horas del PR y cambios pedidos) | Al aprobar el PR |
-| **Retrospectiva** | Cada equipo su renglón; el grupo, el acuerdo y la conclusión | Al final de cada día |
+| **Revisiones** | El equipo organizador (horas del PR y cambios pedidos) | Al aprobar cada PR |
+| **Retrospectiva** | Cada equipo su renglón; el grupo, la mejora propuesta y la conclusión | Al final de la sesión |
 | **Resultados** | Nadie: se calcula sola, con gráficas | — |
 
-Quien administra el repo, después del último merge del día:
+El equipo organizador, después del último merge:
 
 ```bash
 git pull
 python probar.py --tablero
 ```
 
-Esto genera `registro/TABLERO.md` con los 6 equipos y la comparación día 1 contra día 2.
+Esto genera `registro/TABLERO.md` con los 6 equipos y la comparación actividad 1 contra actividad 3.
 También puede correr el workflow **Actions → Métricas de flujo → Run workflow** para que
 GitHub calcule el tiempo de cierre de cada tarjeta y la espera de cada PR.
 

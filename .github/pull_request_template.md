@@ -27,5 +27,5 @@ Desperdicios que notamos (esperas, retrabajo, cambio de tarea, etc.):
 -
 
 ---
-**Para el equipo revisor:** usen el checklist `REVISION.md` (está en la raíz del repo). Si piden cambios, cada cambio
+**Para el equipo organizador (revisor):** usen el checklist `REVISION.md` (está en la raíz del repo). Si piden cambios, cada cambio
 pedido cuenta como un defecto encontrado en revisión.
