@@ -15,6 +15,23 @@ from nucleo.config import ROLES
 from nucleo.utilidades import normalizar
 
 
+def _correo_valido(correo):
+    """Valida un correo siguiendo las reglas del ejercicio."""
+    if correo is None:
+        return False
+
+    correo = str(correo).strip().lower()
+    if not correo or correo.count("@") != 1:
+        return False
+
+    local, dominio = correo.split("@", 1)
+    if not local or not dominio:
+        return False
+    if dominio.startswith(".") or dominio.endswith(".") or "." not in dominio:
+        return False
+    return True
+
+
 def listar_usuarios(repo, solo_activos=False):
     """Actividad 1 — Listar usuarios.
 
@@ -24,8 +41,14 @@ def listar_usuarios(repo, solo_activos=False):
     A cada usuario le agrega la llave "estado" con el texto "Activo"
     si activo es True, o "Inactivo" si es False.
     """
-    # TODO: implementar (Actividad 1)
-    raise NotImplementedError("Actividad 1 pendiente")
+    usuarios = repo.listar("usuarios")
+    if solo_activos:
+        usuarios = [u for u in usuarios if u["activo"] is True]
+
+    for usuario in usuarios:
+        usuario["estado"] = "Activo" if usuario["activo"] is True else "Inactivo"
+
+    return sorted(usuarios, key=lambda u: normalizar(u["nombre"]))
 
 
 def registrar_usuario(repo, nombre, correo, rol="cliente"):
@@ -44,8 +67,27 @@ def registrar_usuario(repo, nombre, correo, rol="cliente"):
     correo limpio, el rol y "activo": True.
     Regresa el id asignado.
     """
-    # TODO: implementar (Actividad 2)
-    raise NotImplementedError("Actividad 2 pendiente")
+    nombre_limpio = str(nombre).strip()
+    if not nombre_limpio:
+        raise ValueError("El nombre no puede quedar vacío")
+
+    correo_limpio = str(correo).strip().lower()
+    if not _correo_valido(correo_limpio):
+        raise ValueError("Correo inválido")
+
+    if any(u["correo"].strip().lower() == correo_limpio for u in repo.listar("usuarios")):
+        raise ValueError("Ya existe un usuario con ese correo")
+
+    if rol not in ROLES:
+        raise ValueError("Rol inválido")
+
+    usuario = {
+        "nombre": nombre_limpio,
+        "correo": correo_limpio,
+        "rol": rol,
+        "activo": True,
+    }
+    return repo.agregar("usuarios", usuario)
 
 
 def cambiar_estado_usuario(repo, usuario_id, activo):
@@ -58,5 +100,16 @@ def cambiar_estado_usuario(repo, usuario_id, activo):
         activo, sí se puede. Activar siempre se puede.
     Regresa el usuario actualizado (el dict que regresa repo.actualizar).
     """
-    # TODO: implementar (Actividad 3)
-    raise NotImplementedError("Actividad 3 pendiente")
+    usuario = repo.obtener("usuarios", usuario_id)
+    if usuario is None:
+        raise ValueError("Usuario no encontrado")
+
+    if activo is False and usuario.get("rol") == "admin":
+        admins_activos = [
+            u for u in repo.listar("usuarios")
+            if u["rol"] == "admin" and u["activo"] is True and u["id"] != usuario_id
+        ]
+        if not admins_activos:
+            raise ValueError("No se puede desactivar al último admin activo")
+
+    return repo.actualizar("usuarios", usuario_id, {"activo": bool(activo)})
