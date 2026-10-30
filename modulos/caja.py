@@ -96,5 +96,14 @@ def corte_de_caja(repo, fecha):
     "total" es la suma de los dos. Montos redondeados a 2 decimales.
     Si no hubo pagos ese día, todo va en 0 (y "fecha" igual se llena).
     """
-    # TODO: implementar (Actividad 3)
-    raise NotImplementedError("Actividad 3 pendiente")
+    fecha_texto = a_fecha(fecha).isoformat()
+    pagos = repo.filtrar("pagos", lambda p: p["fecha"] == fecha_texto)
+    efectivo = round(sum(p["total"] for p in pagos if p["metodo"] == "efectivo"), 2)
+    tarjeta = round(sum(p["total"] for p in pagos if p["metodo"] == "tarjeta"), 2)
+    return {
+        "fecha": fecha_texto,
+        "num_pagos": len(pagos),
+        "efectivo": efectivo,
+        "tarjeta": tarjeta,
+        "total": round(efectivo + tarjeta, 2),
+    }
