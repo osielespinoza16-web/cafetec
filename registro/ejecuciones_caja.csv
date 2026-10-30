@@ -1,0 +1,32 @@
+fecha_hora,ejecucion,modulo,actividad,prueba,resultado,mensaje
+2026-10-29T21:08:22,20261029-210822-073151,caja,1,total_del_pedido[1-68.0],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,1,total_del_pedido[5-120.0],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,1,total_del_pedido[7-53.0],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,1,total_del_pedido[8-96.0],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,1,total_del_pedido[3-70.0],PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,1,redondea_a_dos_decimales,PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,1,pedido_inexistente,PENDIENTE,NotImplementedError: Actividad 1 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,2,cobra_en_efectivo,PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,2,guarda_pago_y_marca_pedido,PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,2,recibido_como_texto,PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,2,cobra_con_tarjeta,PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,2,tarjeta_ignora_recibido,PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,2,ya_pagado_cancelado_o_inexistente[1],PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,2,ya_pagado_cancelado_o_inexistente[3],PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,2,ya_pagado_cancelado_o_inexistente[99],PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,2,efectivo_insuficiente_o_invalido[50_0],PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,2,efectivo_insuficiente_o_invalido[50_1],PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,2,efectivo_insuficiente_o_invalido[cien],PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,2,efectivo_insuficiente_o_invalido[None],PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,2,metodo_invalido,PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,3,corte_de_hoy,PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,3,fecha_como_texto,PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,3,dia_sin_pagos,PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T21:08:22,20261029-210822-073151,caja,3,incluye_pagos_nuevos,PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T21:22:20,20261029-212220-230892,caja,1,total_del_pedido[1-68.0],PASA,
+2026-10-29T21:22:20,20261029-212220-230892,caja,1,total_del_pedido[5-120.0],PASA,
+2026-10-29T21:22:20,20261029-212220-230892,caja,1,total_del_pedido[7-53.0],PASA,
+2026-10-29T21:22:20,20261029-212220-230892,caja,1,total_del_pedido[8-96.0],PASA,
+2026-10-29T21:22:20,20261029-212220-230892,caja,1,total_del_pedido[3-70.0],PASA,
+2026-10-29T21:22:20,20261029-212220-230892,caja,1,redondea_a_dos_decimales,PASA,
+2026-10-29T21:22:20,20261029-212220-230892,caja,1,pedido_inexistente,PASA,

@@ -24,8 +24,10 @@ def calcular_total(repo, pedido_id):
     Regresa la suma de precio_unitario * cantidad de todos sus items,
     redondeada a 2 decimales (float). Tip: total_de_items() ya lo hace.
     """
-    # TODO: implementar (Actividad 1)
-    raise NotImplementedError("Actividad 1 pendiente")
+    pedido = repo.obtener("pedidos", pedido_id)
+    if pedido is None:
+        raise ValueError(f"El pedido {pedido_id} no existe")
+    return total_de_items(pedido["items"])
 
 
 def cobrar_pedido(repo, pedido_id, metodo, recibido=None, hoy=None):
