@@ -1,3 +1,7 @@
 fecha_hora,modulo,actividad,evento,detalle
 2026-10-28T21:48:53,pedidos,1,INICIO,crear_pedido
 2026-10-28T21:52:34,pedidos,1,FIN,
+2026-10-29T19:08:07,pedidos,2,INICIO,listar_pedidos
+2026-10-29T19:15:11,pedidos,2,FIN,
+2026-10-29T19:17:53,pedidos,3,INICIO,cambiar_estado_pedido
+2026-10-29T19:29:28,pedidos,3,FIN,

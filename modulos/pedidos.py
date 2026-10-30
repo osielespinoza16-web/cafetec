@@ -79,8 +79,16 @@ def listar_pedidos(repo, estado=None):
       "cliente": el nombre del usuario que hizo el pedido
       "piezas":  la suma de las cantidades de todos sus items
     """
-    # TODO: implementar (Actividad 2)
-    raise NotImplementedError("Actividad 2 pendiente")
+    if estado and estado not in ESTADOS:
+        raise ValueError(f"Estado desconocido: {estado}")
+    pedidos = sorted(repo.listar("pedidos"), key=lambda p: p["id"], reverse=True)
+    if estado:
+        pedidos = [p for p in pedidos if p["estado"] == estado]
+    for pedido in pedidos:
+        usuario = repo.obtener("usuarios", pedido["usuario_id"])
+        pedido["cliente"] = usuario["nombre"] if usuario else ""
+        pedido["piezas"] = sum(i["cantidad"] for i in pedido["items"])
+    return pedidos
 
 
 def cambiar_estado_pedido(repo, pedido_id, nuevo_estado):
@@ -94,5 +102,11 @@ def cambiar_estado_pedido(repo, pedido_id, nuevo_estado):
         cancelado; listo -> entregado; entregado y cancelado ya no cambian)
     Regresa el pedido actualizado (el dict que regresa repo.actualizar).
     """
-    # TODO: implementar (Actividad 3)
-    raise NotImplementedError("Actividad 3 pendiente")
+    pedido = repo.obtener("pedidos", pedido_id)
+    if pedido is None:
+        raise ValueError(f"El pedido {pedido_id} no existe")
+    if nuevo_estado not in ESTADOS:
+        raise ValueError(f"Estado desconocido: {nuevo_estado}")
+    if nuevo_estado not in TRANSICIONES[pedido["estado"]]:
+        raise ValueError(f"No se puede pasar de {pedido['estado']} a {nuevo_estado}")
+    return repo.actualizar("pedidos", pedido_id, {"estado": nuevo_estado})

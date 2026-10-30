@@ -44,3 +44,44 @@ fecha_hora,ejecucion,modulo,actividad,prueba,resultado,mensaje
 2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,cantidad_invalida[1.5],PASA,
 2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,cantidad_invalida[None],PASA,
 2026-10-28T21:52:34,20261028-215234-057154,pedidos,1,no_guarda_si_un_item_falla,PASA,
+2026-10-29T19:05:17,20261029-190517-298966,pedidos,2,todos_del_mas_reciente,PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T19:05:17,20261029-190517-298966,pedidos,2,agrega_cliente_y_piezas,PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T19:05:17,20261029-190517-298966,pedidos,2,filtra_por_estado,PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T19:05:17,20261029-190517-298966,pedidos,2,estado_vacio_no_filtra,PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T19:05:17,20261029-190517-298966,pedidos,2,estado_invalido,PENDIENTE,NotImplementedError: Actividad 2 pendiente
+2026-10-29T19:08:37,20261029-190837-241044,pedidos,2,todos_del_mas_reciente,PASA,
+2026-10-29T19:08:37,20261029-190837-241044,pedidos,2,agrega_cliente_y_piezas,PASA,
+2026-10-29T19:08:37,20261029-190837-241044,pedidos,2,filtra_por_estado,FALLA,"assert [10, 9, 8, 7, 6, 5, ...] == [9, 8, 7]"
+2026-10-29T19:08:37,20261029-190837-241044,pedidos,2,estado_vacio_no_filtra,PASA,
+2026-10-29T19:08:37,20261029-190837-241044,pedidos,2,estado_invalido,FALLA,Failed: DID NOT RAISE ValueError
+2026-10-29T19:15:11,20261029-191510-924226,pedidos,2,todos_del_mas_reciente,PASA,
+2026-10-29T19:15:11,20261029-191510-924226,pedidos,2,agrega_cliente_y_piezas,PASA,
+2026-10-29T19:15:11,20261029-191510-924226,pedidos,2,filtra_por_estado,PASA,
+2026-10-29T19:15:11,20261029-191510-924226,pedidos,2,estado_vacio_no_filtra,PASA,
+2026-10-29T19:15:11,20261029-191510-924226,pedidos,2,estado_invalido,PASA,
+2026-10-29T19:18:08,20261029-191808-659478,pedidos,3,transiciones_validas[7-preparando],PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T19:18:08,20261029-191808-659478,pedidos,3,transiciones_validas[7-cancelado],PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T19:18:08,20261029-191808-659478,pedidos,3,transiciones_validas[6-listo],PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T19:18:08,20261029-191808-659478,pedidos,3,transiciones_validas[6-cancelado],PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T19:18:08,20261029-191808-659478,pedidos,3,transiciones_validas[5-entregado],PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T19:18:08,20261029-191808-659478,pedidos,3,transiciones_no_permitidas[7-listo],PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T19:18:08,20261029-191808-659478,pedidos,3,transiciones_no_permitidas[7-entregado],PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T19:18:08,20261029-191808-659478,pedidos,3,transiciones_no_permitidas[5-pendiente],PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T19:18:08,20261029-191808-659478,pedidos,3,transiciones_no_permitidas[1-cancelado],PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T19:18:08,20261029-191808-659478,pedidos,3,transiciones_no_permitidas[3-pendiente],PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T19:18:08,20261029-191808-659478,pedidos,3,transiciones_no_permitidas[6-preparando],PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T19:18:08,20261029-191808-659478,pedidos,3,estado_desconocido,PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T19:18:08,20261029-191808-659478,pedidos,3,pedido_inexistente,PENDIENTE,NotImplementedError: Actividad 3 pendiente
+2026-10-29T19:29:28,20261029-192928-502674,pedidos,3,transiciones_validas[7-preparando],PASA,
+2026-10-29T19:29:28,20261029-192928-502674,pedidos,3,transiciones_validas[7-cancelado],PASA,
+2026-10-29T19:29:28,20261029-192928-502674,pedidos,3,transiciones_validas[6-listo],PASA,
+2026-10-29T19:29:28,20261029-192928-502674,pedidos,3,transiciones_validas[6-cancelado],PASA,
+2026-10-29T19:29:28,20261029-192928-502674,pedidos,3,transiciones_validas[5-entregado],PASA,
+2026-10-29T19:29:28,20261029-192928-502674,pedidos,3,transiciones_no_permitidas[7-listo],PASA,
+2026-10-29T19:29:28,20261029-192928-502674,pedidos,3,transiciones_no_permitidas[7-entregado],PASA,
+2026-10-29T19:29:28,20261029-192928-502674,pedidos,3,transiciones_no_permitidas[5-pendiente],PASA,
+2026-10-29T19:29:28,20261029-192928-502674,pedidos,3,transiciones_no_permitidas[1-cancelado],PASA,
+2026-10-29T19:29:28,20261029-192928-502674,pedidos,3,transiciones_no_permitidas[3-pendiente],PASA,
+2026-10-29T19:29:28,20261029-192928-502674,pedidos,3,transiciones_no_permitidas[6-preparando],PASA,
+2026-10-29T19:29:28,20261029-192928-502674,pedidos,3,estado_desconocido,PASA,
+2026-10-29T19:29:28,20261029-192928-502674,pedidos,3,pedido_inexistente,PASA,
