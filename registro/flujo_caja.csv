@@ -3,3 +3,5 @@ fecha_hora,modulo,actividad,evento,detalle
 2026-10-29T21:22:20,caja,1,FIN,
 2026-10-29T21:39:31,caja,2,INICIO,cobrar_pedido
 2026-10-29T21:43:58,caja,2,FIN,
+2026-10-29T22:06:54,caja,3,INICIO,corte_de_caja
+2026-10-29T22:07:27,caja,3,FIN,
