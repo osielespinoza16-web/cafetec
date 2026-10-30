@@ -24,8 +24,10 @@ def calcular_total(repo, pedido_id):
     Regresa la suma de precio_unitario * cantidad de todos sus items,
     redondeada a 2 decimales (float). Tip: total_de_items() ya lo hace.
     """
-    # TODO: implementar (Actividad 1)
-    raise NotImplementedError("Actividad 1 pendiente")
+    pedido = repo.obtener("pedidos", pedido_id)
+    if pedido is None:
+        raise ValueError(f"El pedido {pedido_id} no existe")
+    return total_de_items(pedido["items"])
 
 
 def cobrar_pedido(repo, pedido_id, metodo, recibido=None, hoy=None):
@@ -45,8 +47,42 @@ def cobrar_pedido(repo, pedido_id, metodo, recibido=None, hoy=None):
     texto "AAAA-MM-DD"; después marca el pedido con "pagado": True.
     Regresa el ticket completo: el dict del pago INCLUYENDO su "id".
     """
-    # TODO: implementar (Actividad 2)
-    raise NotImplementedError("Actividad 2 pendiente")
+
+    pedido = repo.obtener("pedidos", pedido_id)
+    if pedido is None:
+        raise ValueError(f"El pedido {pedido_id} no existe")
+    if pedido["pagado"]:
+        raise ValueError("El pedido ya está pagado")
+    if pedido["estado"] == "cancelado":
+        raise ValueError("No se puede cobrar un pedido cancelado")
+    if metodo not in METODOS_PAGO:
+        raise ValueError("Método de pago inválido: usa efectivo o tarjeta")
+
+    total = calcular_total(repo, pedido_id)
+
+    if metodo == "efectivo":
+        try:
+            recibido = float(recibido)
+        except (TypeError, ValueError):
+            raise ValueError("El monto recibido no es un número válido")
+        if recibido < total:
+            raise ValueError("El monto recibido no alcanza para cubrir el total")
+        cambio = recibido - total
+    else:
+        recibido = total
+        cambio = 0.0
+
+    pago = {
+        "pedido_id": pedido_id,
+        "metodo": metodo,
+        "total": round(total, 2),
+        "recibido": round(recibido, 2),
+        "cambio": round(cambio, 2),
+        "fecha": hoy_o(hoy).isoformat(),
+    }
+    pago["id"] = repo.agregar("pagos", pago)
+    repo.actualizar("pedidos", pedido_id, {"pagado": True})
+    return pago
 
 
 def corte_de_caja(repo, fecha):
@@ -60,5 +96,14 @@ def corte_de_caja(repo, fecha):
     "total" es la suma de los dos. Montos redondeados a 2 decimales.
     Si no hubo pagos ese día, todo va en 0 (y "fecha" igual se llena).
     """
-    # TODO: implementar (Actividad 3)
-    raise NotImplementedError("Actividad 3 pendiente")
+    fecha_texto = a_fecha(fecha).isoformat()
+    pagos = repo.filtrar("pagos", lambda p: p["fecha"] == fecha_texto)
+    efectivo = round(sum(p["total"] for p in pagos if p["metodo"] == "efectivo"), 2)
+    tarjeta = round(sum(p["total"] for p in pagos if p["metodo"] == "tarjeta"), 2)
+    return {
+        "fecha": fecha_texto,
+        "num_pagos": len(pagos),
+        "efectivo": efectivo,
+        "tarjeta": tarjeta,
+        "total": round(efectivo + tarjeta, 2),
+    }
